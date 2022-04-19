@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate, Link } from "react-router-dom";
 import NavComponent from './NavComponent/NavComponent';
 import Login from './NavComponent/NavComponents/login';
 import SignUp from './NavComponent/NavComponents/signup';
@@ -27,8 +27,13 @@ function App() {
 
 const Home = () => {
   return (
-    <div>
-      <h1>Welcome to trip planner!</h1>
+    <div id='home'>
+      <div id="home-content">
+        <h1>Plan your next trip</h1>
+        <Link to='/sign-up'>
+          <button>Sign Up</button>
+        </Link>
+      </div>
     </div>
   )
 }
