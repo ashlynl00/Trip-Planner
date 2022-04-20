@@ -8,6 +8,7 @@ import Contact from './NavComponent/NavComponents/contact';
 import About from './NavComponent/NavComponents/about';
 
 function App() {
+  
   return (
     <Router>
       <div className="App">

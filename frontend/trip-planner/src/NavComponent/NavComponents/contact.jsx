@@ -2,7 +2,7 @@ const Contact = () => {
     return (
         <div>
             <h1>Contact Us</h1>
-            <form>
+            <form action="https://formsubmit.co/ashlyn@downing.us" method="POST">
                 <label for='fname'>First Name: </label>
                 <input type='text' name='fname' placeholder="first name"></input>
                 <label for='lname'>Last Name: </label>
