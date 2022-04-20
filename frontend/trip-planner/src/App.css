@@ -61,7 +61,9 @@ nav a {
   color: black;
 }
 
-
+#logout-nav {
+  cursor: pointer;
+}
 
 
 /* home page */

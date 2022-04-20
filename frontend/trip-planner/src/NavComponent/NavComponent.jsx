@@ -1,6 +1,12 @@
 import {Link, useNavigate} from 'react-router-dom';
 
 const NavComponent = () => {
+    const navigate = useNavigate();
+    const logout = () => {
+        localStorage.removeItem('currentUser');
+        console.log(localStorage.getItem('currentUser'));
+        navigate('/login');
+    }
     return (
         <nav>
             <h2>Logo here</h2>
@@ -14,9 +20,14 @@ const NavComponent = () => {
                 <Link to='/about'>
                     <li>About</li>
                 </Link>
-                <Link to='/login'>
-                    <li>Login</li>
-                </Link>
+                {localStorage.getItem('currentUser')==null ?
+                    <Link to='/login'>
+                        <li>Login</li>
+                    </Link>
+                    :
+                    <li onClick={logout} id='logout-nav'>Logout</li>
+                }
+                
                 <Link to='/sign-up'>
                     <li>Sign Up</li>
                 </Link>
