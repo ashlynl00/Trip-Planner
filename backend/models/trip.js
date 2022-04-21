@@ -3,7 +3,9 @@ const Schema = mongoose.Schema;
 
 const tripSchema = new Schema ({
     tripName: {type: String, required: true},
-    dates: {type: Date, required: true},
+    dateStart: {type: Date, required: true},
+    dateEnd: {type: Date, required:true},
+    userIds: [{type: String}],
     people: [{type: String}],
     mainTransportation: {
         when: {type: Date},

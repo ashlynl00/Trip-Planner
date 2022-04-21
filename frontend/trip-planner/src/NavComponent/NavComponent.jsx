@@ -1,11 +1,22 @@
 import {Link, useNavigate} from 'react-router-dom';
+import apiUrl from '../apiConfig';
 
-const NavComponent = () => {
+const NavComponent = (props) => {
     const navigate = useNavigate();
     const logout = () => {
         localStorage.removeItem('currentUser');
         console.log(localStorage.getItem('currentUser'));
         navigate('/login');
+    };
+    const getTrips = async () => {
+        const apiResponse = await  fetch(`${apiUrl}/trips`);
+        const parsedResponse = await apiResponse.json();
+        if (parsedResponse.status == 200) {
+        props.setTrips(parsedResponse.data)
+        console.log(props.trips);
+        } else {
+        console.log('status was 500, did not get trips')
+        }
     }
     return (
         <nav>
@@ -30,11 +41,11 @@ const NavComponent = () => {
                     <>
                     <li>Account</li>
                     <li onClick={logout} id='logout-nav'>Logout</li>
+                    <Link to='/trips'>
+                        <li onClick={getTrips}>Trips</li>
+                    </Link>
                     </>
                 }
-                <Link to='/user-account'>
-                    <li>Trips</li>
-                </Link>
             </ul>
         </nav>
     )

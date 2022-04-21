@@ -27,7 +27,12 @@ router.get('/', async (req,res)=>{
 router.post('/', async (req, res)=>{
     try {
         // get request from body and use create method to add it to db
-        const newTrip = await Trip.create(req.body);
+        const newTrip = await Trip.create(req.body.trip);
+        console.log(newTrip);
+        // now add the user id to this trip user Id array
+        newTrip.userIds.push(req.body.userId);
+        newTrip.save();
+        console.log(newTrip);
         // send back JSON response
         res.send({
             status: 200,

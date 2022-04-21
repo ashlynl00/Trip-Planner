@@ -1,18 +1,66 @@
-const NewTrip = () => {
+import { useState } from "react";
+import apiUrl from "../../apiConfig";
+import { useNavigate } from "react-router-dom";
+
+const NewTrip = (props) => {
+    const navigate = useNavigate();
+    // parse the user 
+    let parsedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(parsedCurrentUser);
+    // set up state for new trip to exist in
+    const [newTrip, setNewTrip] = useState({
+        tripName: '',
+        dateStart: '',
+        dateEnd: '',
+        userIds: ''
+    });
+    const handleInputChange = (e) => {
+        setNewTrip({
+            ...newTrip,
+            [e.target.name]: e.target.value
+        })
+        console.log(newTrip);
+    };
+    const postNewTrip = async(userId, newTrip) => {
+        const apiResponse = await fetch(`${apiUrl}/trips`, {
+            method: "POST",
+            body: JSON.stringify({trip: newTrip, userId:userId}),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        const parsedResponse = await apiResponse.json();
+        if (parsedResponse.status == 200) {
+            console.log('yay status 200');
+            props.setTrips([parsedResponse.data, ...props.trips]);
+            console.log('here is now the array of state trips: ');
+            console.log(props.trips);
+        }
+    }
+    const submitNewTrip = (e) => {
+        e.preventDefault();
+        postNewTrip(parsedCurrentUser._id, newTrip);
+        // reset form fields
+        setNewTrip({
+            tripName: '',
+            dateStart: '',
+            dateEnd: '',
+            userIds: ''
+        });
+        navigate('/trips');
+    }
     return (
         <div>
             <h1>Add a new trip</h1>
-            <form>
+            <form onSubmit={submitNewTrip}>
                 <h3>Basic Trip Info: </h3>
                 <label for='tripName'>Trip Name: </label>
-                <input type='text' name='tripName' placeholder='trip name'></input>
-                <label for='date-start'>Date Start: </label>
-                <input type='date' name='date-start' placeholder='date start'></input>
-                <label for='date-end'>Date End: </label>
-                <input type='date' name='date-end' placeholder='date end'></input>
-                <label for='people'>People: </label>
-                <input type='text' name='people' placeholder='people'></input>
-                <h3>Transportation: </h3>
+                <input type='text' name='tripName' placeholder='trip name' onChange={handleInputChange} value={newTrip.tripName}></input>
+                <label for='dateStart'>Date Start: </label>
+                <input type='date' name='dateStart' placeholder='date start' onChange={handleInputChange} value={newTrip.dateStart}></input>
+                <label for='dateEnd'>Date End: </label>
+                <input type='date' name='dateEnd' placeholder='date end' onChange={handleInputChange} value={newTrip.dateEnd}></input>
+                {/* <h3>Transportation: </h3>
                 <label for='when'>Time of Departure: </label>
                 <input type='datetime' name='when' placeholder='date to travel'></input>
                 <label for='cost'>Cost of Transportation: </label>
@@ -21,7 +69,8 @@ const NewTrip = () => {
                 <input type='boolean' name='booked' placeholder='booked?'></input>
                 <h3>Packing List: </h3>
                 <textarea type='text' name='packingList'></textarea>
-                <button type="submit">Create</button>
+                <button type="submit">Create</button> */}
+                <button type="submit">Submit</button>
             </form>
         </div>
     )

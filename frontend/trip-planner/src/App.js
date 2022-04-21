@@ -10,9 +10,11 @@ import About from './FooterComponent/about';
 import apiUrl from './apiConfig';
 import FooterComponent from './FooterComponent/FooterComponent';
 import UserAccount from './NavComponent/NavComponents/userAccount';
+import Trips from './NavComponent/NavComponents/trips';
 
 function App() {
   const [users, setUsers] = useState([]);
+  const [trips, setTrips] = useState([]);
   const getUsers = async () => {
     try {
       const users = await fetch(`${apiUrl}/users`);
@@ -21,20 +23,21 @@ function App() {
     } catch (err) {
         console.log(err);
     }
-  }
+  } 
   return (
     <Router>
       <div className="App">
-        <NavComponent></NavComponent>
+        <NavComponent trips={trips} setTrips={setTrips}></NavComponent>
         <FooterComponent></FooterComponent>
         <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/new-trip" element={<NewTrip />}></Route>
+          <Route path="/new-trip" element={<NewTrip trips={trips} setTrips={setTrips} />}></Route>
           <Route path="/about" element={<About />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/sign-up" element={<SignUp users={users} setUsers={setUsers} />}></Route>
           <Route path="/contact" element={<Contact />}></Route>
           <Route path='/user-account' element={<UserAccount />}></Route>
+          <Route path='/trips' element={<Trips />}></Route>
         </Routes>
       </div>
     </Router>

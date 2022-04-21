@@ -41,6 +41,7 @@ const SignUp = (props) => {
                 // add the new item to state
                 props.setUsers([parsedResponse.data, ...props.users]);
                 console.log(props.users);
+                navigate('/login');
             }
         } else {
             //else:
