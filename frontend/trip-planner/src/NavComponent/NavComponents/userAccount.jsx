@@ -58,6 +58,21 @@ const UserAccount = () => {
             navigate('/user-account');
         }
     }
+    const deleteAccount = async (idToDelete) => {
+        const apiResponse = await fetch(`${apiUrl}/users/${idToDelete}`, {
+            method: "DELETE"
+        });
+        const parsedResponse = await apiResponse.json();
+        if (parsedResponse.status == 200) {
+            console.log('yay delete was successful');
+            // remove current user
+            localStorage.removeItem('currentUser');
+            // navigate to home
+            navigate('/');
+        } else {
+            console.log('ohr nor twas not successful');
+        }
+    }
     return (
         <div>
             <h1>Hello {parsedUser.username}</h1>
@@ -69,7 +84,7 @@ const UserAccount = () => {
                 :
                 <button onClick={toggleShowing}>Edit Account</button>
             }
-            <button>Delete Account</button>
+            <button onClick={ ()=>{deleteAccount(parsedUser._id)}}>Delete Account</button>
         </div>
     )
 }
