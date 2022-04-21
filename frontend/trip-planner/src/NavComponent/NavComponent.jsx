@@ -17,22 +17,23 @@ const NavComponent = () => {
                 <Link to='/new-trip'>
                     <li>New Trip</li>
                 </Link>
-                <Link to='/about'>
-                    <li>About</li>
-                </Link>
                 {localStorage.getItem('currentUser')==null ?
-                    <Link to='/login'>
-                        <li>Login</li>
-                    </Link>
+                    <>
+                        <Link to='/login'>
+                            <li>Login</li>
+                        </Link>
+                        <Link to='/sign-up'>
+                            <li>Sign Up</li>
+                        </Link>
+                    </>
                     :
+                    <>
+                    <li>Account</li>
                     <li onClick={logout} id='logout-nav'>Logout</li>
+                    </>
                 }
-                
-                <Link to='/sign-up'>
-                    <li>Sign Up</li>
-                </Link>
-                <Link to='/contact'>
-                    <li>Contact</li>
+                <Link to='/user-account'>
+                    <li>Trips</li>
                 </Link>
             </ul>
         </nav>
