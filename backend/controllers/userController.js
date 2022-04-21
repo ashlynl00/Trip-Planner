@@ -130,20 +130,39 @@ router.put('/:id', async (req, res)=>{
         // find the item that was clicked on
         console.log(req.body);
          const user = await User.findById(req.params.id);
-         if (req.body.neighborhood) {
-             user.neighborhood.push(req.body.neighborhood);
-             console.log('inside join neighborhood')
-         } else if (req.body.neighborhoodIdToRemove) {
-             let index = user.neighborhood.indexOf(req.body.neighborhoodIdToRemove);
-             user.neighborhood.splice(index, 1);
-             console.log('inside unjoin')
+         if (req.body.username) {
+            console.log('inside put route if')
+            // see if any other accounts match username
+            let sameUsername = await User.findOne({username: req.body.username})
+            console.log(sameUsername);
+            if (sameUsername == null) {
+                console.log('yay no other user has this username')
+                // now go ahead and change username since no other user has it
+                user.username = req.body.username;
+                user.save();
+                console.log('this is now the user:');
+                console.log(user);
+                console.log(user.username);
+                res.send({
+                    status: 200,
+                    data: user
+                });
+            } else {
+                console.log('this username is already taken');
+                res.send({
+                    status: 200,
+                    data: 'this username is already taken'
+                })
+            }
          }
-         user.save();
-        console.log(user);
-        res.send({
-            status: 200,
-            data: user
-        });
+        //  if (req.body.neighborhood) {
+        //      user.neighborhood.push(req.body.neighborhood);
+        //      console.log('inside join neighborhood')
+        //  } else if (req.body.neighborhoodIdToRemove) {
+        //      let index = user.neighborhood.indexOf(req.body.neighborhoodIdToRemove);
+        //      user.neighborhood.splice(index, 1);
+        //      console.log('inside unjoin')
+        //  }
     } catch (err) {
         console.log(err);
         res.send({
