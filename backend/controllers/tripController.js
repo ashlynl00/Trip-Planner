@@ -9,6 +9,8 @@ router.get('/', async (req,res)=>{
     try{
         // the data we will send will come from the Schema database
         const trips = await Trip.find();
+        console.log('trips');
+        console.log(trips);
         // if we are able to access this route, send a good status and show the data
         res.send ({
             status: 200,

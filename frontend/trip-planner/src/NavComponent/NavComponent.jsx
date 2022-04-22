@@ -9,6 +9,7 @@ const NavComponent = (props) => {
         navigate('/login');
     };
     const getTrips = async () => {
+        console.log('inside gettrips')
         const apiResponse = await  fetch(`${apiUrl}/trips`);
         const parsedResponse = await apiResponse.json();
         if (parsedResponse.status == 200) {
@@ -17,6 +18,7 @@ const NavComponent = (props) => {
         } else {
         console.log('status was 500, did not get trips')
         }
+        navigate('/trips')
     }
     return (
         <nav>
@@ -42,7 +44,10 @@ const NavComponent = (props) => {
                     <li>Account</li>
                     <li onClick={logout} id='logout-nav'>Logout</li>
                     <Link to='/trips'>
-                        <li onClick={getTrips}>Trips</li>
+                        <li onClick={(e)=>{
+                            e.preventDefault();
+                            getTrips();
+                        }}>Trips</li>
                     </Link>
                     </>
                 }

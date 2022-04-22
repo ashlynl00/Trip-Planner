@@ -37,7 +37,7 @@ function App() {
           <Route path="/sign-up" element={<SignUp users={users} setUsers={setUsers} />}></Route>
           <Route path="/contact" element={<Contact />}></Route>
           <Route path='/user-account' element={<UserAccount />}></Route>
-          <Route path='/trips' element={<Trips />}></Route>
+          <Route path='/trips' element={<Trips trips={trips} setTrips={setTrips} />}></Route>
         </Routes>
       </div>
     </Router>
