@@ -6,6 +6,7 @@ const tripSchema = new Schema ({
     dateStart: {type: Date, required: true},
     dateEnd: {type: Date, required:true},
     userIds: [{type: String}],
+    destinations: [{type:String, required: true}],
     people: [{type: String}],
     mainTransportation: {
         when: {type: Date},

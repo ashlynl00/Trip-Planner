@@ -12,7 +12,8 @@ const NewTrip = (props) => {
         tripName: '',
         dateStart: '',
         dateEnd: '',
-        userIds: ''
+        userIds: '',
+        destinations: ''
     });
     const handleInputChange = (e) => {
         setNewTrip({
@@ -45,7 +46,8 @@ const NewTrip = (props) => {
             tripName: '',
             dateStart: '',
             dateEnd: '',
-            userIds: ''
+            userIds: '',
+            destinations: ''
         });
         navigate('/trips');
     }
@@ -55,11 +57,13 @@ const NewTrip = (props) => {
             <form onSubmit={submitNewTrip}>
                 <h3>Basic Trip Info: </h3>
                 <label for='tripName'>Trip Name: </label>
-                <input type='text' name='tripName' placeholder='trip name' onChange={handleInputChange} value={newTrip.tripName}></input>
+                <input type='text' name='tripName' placeholder='trip name' onChange={handleInputChange} value={newTrip.tripName} required></input>
                 <label for='dateStart'>Date Start: </label>
-                <input type='date' name='dateStart' placeholder='date start' onChange={handleInputChange} value={newTrip.dateStart}></input>
+                <input type='date' name='dateStart' placeholder='date start' onChange={handleInputChange} value={newTrip.dateStart}required></input>
                 <label for='dateEnd'>Date End: </label>
-                <input type='date' name='dateEnd' placeholder='date end' onChange={handleInputChange} value={newTrip.dateEnd}></input>
+                <input type='date' name='dateEnd' placeholder='date end' onChange={handleInputChange} value={newTrip.dateEnd} required></input>
+                <label for='destinations'>Destinations: </label>
+                <input type='text' name='destinations' placeholder='destinations' onChange={handleInputChange} value={newTrip.destinations} required></input>
                 {/* <h3>Transportation: </h3>
                 <label for='when'>Time of Departure: </label>
                 <input type='datetime' name='when' placeholder='date to travel'></input>

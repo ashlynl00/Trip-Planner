@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import apiUrl from "../../apiConfig";
+import SingleTripComponent from "./SingleTripComponent/SingleTripComponent";
 
 const Trips = (props) => {
     const navigate = useNavigate();
@@ -77,7 +78,7 @@ const Trips = (props) => {
                         <ul>
                             {currentUserTrips.map((trip)=> {
                                 return (
-                                    <li>{trip.tripName}</li>
+                                    <li><SingleTripComponent trip={trip} /></li>
                                 )
                             })}
                         </ul>

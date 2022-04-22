@@ -90,6 +90,12 @@ nav a {
 }
 
 
+/* Single Trip Components */
+.single-trip-item:hover {
+  background-color: aliceblue;
+}
+
+
 
 /* footer component */
 #footer {
@@ -107,3 +113,4 @@ nav a {
   text-decoration: none;
   color: black;
 }
+
