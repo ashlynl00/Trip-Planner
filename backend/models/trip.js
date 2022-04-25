@@ -17,6 +17,7 @@ const tripSchema = new Schema ({
     itinerary: [
         {day: {
             dateTime: {type: Date},
+            description: {type: String},
             events: [
                 {
                     eventName: {type: String},

@@ -90,9 +90,31 @@ nav a {
 }
 
 
+
+/* User Trips List */
+.user-trips ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.user-trips li {
+  padding-left: 0;
+}
+
+
 /* Single Trip Components */
 .single-trip-item:hover {
   background-color: aliceblue;
+  cursor: pointer;
+}
+
+.trip-modal {
+  position: absolute;
+  top: 100px;
+  z-index: 10;
+  background-color: red;
+  height: 100%;
+  width: 100%;
 }
 
 

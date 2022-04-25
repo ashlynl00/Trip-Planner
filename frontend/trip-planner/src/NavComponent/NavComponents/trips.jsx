@@ -73,7 +73,7 @@ const Trips = (props) => {
         <div>
             {parsedCurrentUser !== null ?
                 currentUserTrips.length > 0 ?
-                    <div>
+                    <div className="user-trips">
                         <p>User Trips:</p>
                         <ul>
                             {currentUserTrips.map((trip)=> {
