@@ -93,7 +93,7 @@ router.put('/:id', async (req, res)=>{
                 status: 200,
                 data: trip
             })
-        } else if (req.body.event) {
+        } else if (req.body.event && !req.body.eventToEdit) {
             console.log('inside req.body.event');
             console.log(req.body);
             console.log(req.body.event);
@@ -126,7 +126,39 @@ router.put('/:id', async (req, res)=>{
                     })
                 }
             }
-        } 
+        } else if (req.body.eventToEdit) {
+            console.log(req.body.eventToEdit);
+            console.log(req.body.event)
+            let currentDay = new Date(req.body.currentDay);
+            console.log(currentDay);
+            for (let i=0; i<trip.itinerary.length; i++) {
+                console.log('in for loop');
+                console.log(trip.itinerary[i].dateTime.getTime());
+                console.log(currentDay.getTime());
+                // first we want to check if it equals the right day
+                if (trip.itinerary[i].dateTime.getTime() == currentDay.getTime()) {
+                    console.log('in first if');
+                    // now check through each event of this itinerary item with the event id from front end
+                    for (let j=0; j<trip.itinerary[i].events.length; j++) {
+                        if (trip.itinerary[i].events[j]._id == req.body.eventToEdit) {
+                            console.log('yay we found a matching event now let us edit it');
+                            console.log(trip.itinerary[i].events[j]);
+                            // now update the object
+                            trip.itinerary[i].events[j].eventName = req.body.event.eventName;
+                            trip.itinerary[i].events[j].eventTime = req.body.event.eventTime;
+                            trip.itinerary[i].events[j].eventPrice = req.body.event.eventPrice;
+                            trip.save();
+                            console.log('below is the editted event');
+                            console.log(trip.itinerary[i].events[j]);
+                            res.send({
+                                status: 200,
+                                data: trip
+                            })
+                        }
+                    }
+                }
+            }
+        }
         // editing the itinerary
         // if (req.body.description && req.body.event) {
         //     console.log(req.body.description);

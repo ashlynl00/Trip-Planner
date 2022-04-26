@@ -3,6 +3,7 @@ import { useState } from "react";
 import apiUrl from "../../../apiConfig";
 import moment from 'moment';
 import { useNavigate } from "react-router-dom";
+import EventComponent from "./EventComponents";
 
 const DayComponent = (props) => {
     let navigate = useNavigate();
@@ -113,7 +114,7 @@ const DayComponent = (props) => {
                         :
                         <button onClick={toggleShowing}>Add Description</button>
                     }
-                    <p>Events: None added</p>
+                    {/* <p>Events: None added</p>
                     {showingEventForm ?
                         <form onSubmit={submitAddEvent}>
                             Event Name: <input type='text' name='eventName' value={addEvent.eventName} onChange={handleInputChangeEvent}></input>
@@ -123,7 +124,7 @@ const DayComponent = (props) => {
                         </form>
                         :
                         <button onClick={toggleShowingEventForm}>Add Event</button>
-                    }
+                    } */}
                 </>
                 : 
                 <>
@@ -148,7 +149,7 @@ const DayComponent = (props) => {
                     <ul>Events:
                         {props.trip.itinerary[props.index].events.map((event)=>{
                             return (
-                                <li>{event.eventName}</li>
+                                <li><EventComponent event={event} formattedCurrentDay={formattedCurrentDay} trip={props.trip}></EventComponent></li>
                             )
                         })}
                     </ul>
