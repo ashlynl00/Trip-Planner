@@ -115,6 +115,28 @@ nav a {
 
 
 
+/* day components */
+.day-container {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.day-component {
+  width: 200px;
+  background-color: aqua;
+  margin: 20px;
+}
+
+.day-component p {
+  margin: 0px;
+}
+
+
+
 /* footer component */
 #footer {
   position: absolute;

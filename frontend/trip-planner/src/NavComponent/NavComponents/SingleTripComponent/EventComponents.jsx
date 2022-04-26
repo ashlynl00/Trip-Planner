@@ -47,6 +47,22 @@ const EventComponent = (props) => {
         });
         toggleShowing();
     }
+    const deleteEvent = async (formattedCurrentDay, eventToDelete, tripToEdit) => {
+        const apiResponse = await fetch(`${apiUrl}/trips/${tripToEdit}`, {
+            method: "PUT",
+            body: JSON.stringify({currentDay: formattedCurrentDay, eventToDelete: eventToDelete}),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        const parsedResponse = await apiResponse.json();
+        if (parsedResponse.status == 200 && parsedResponse.data == 'did not match') {
+            console.log('did not match')
+        } else {
+            console.log('yay it worked!');
+            navigate('/trips');
+        }
+    }
     return (
         <div>
             <p>{props.event.eventName}</p>
@@ -64,6 +80,7 @@ const EventComponent = (props) => {
                 :
                 <button onClick={toggleShowing}>Edit Event</button>
             }
+            <button onClick={()=>{deleteEvent(props.formattedCurrentDay, props.event._id, props.trip._id)}}>Delete Event</button>
         </div>
     )
 }

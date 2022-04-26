@@ -158,6 +158,36 @@ router.put('/:id', async (req, res)=>{
                     }
                 }
             }
+        } else if (req.body.eventToDelete) {
+            console.log(req.body.eventToDelete);
+            let currentDay = new Date(req.body.currentDay);
+            console.log(currentDay);
+            for (let i=0; i<trip.itinerary.length; i++) {
+                console.log('in for loop');
+                console.log(trip.itinerary[i].dateTime.getTime());
+                console.log(currentDay.getTime());
+                // first we want to check if it equals the right day
+                if (trip.itinerary[i].dateTime.getTime() == currentDay.getTime()) {
+                    console.log('in first if, found right itinerary');
+                    // now check through each event of this itinerary item with the event id from front end
+                    for (let j=0; j<trip.itinerary[i].events.length; j++) {
+                        console.log(trip.itinerary[i].events[j]._id);
+                        console.log(req.body.eventToDelete)
+                        if (trip.itinerary[i].events[j]._id == req.body.eventToDelete) {
+                            console.log('yay we found a matching event now let us delete it');
+                            console.log(trip.itinerary[i].events[j]);
+                            console.log(j);
+                            // now delete the object
+                            trip.itinerary[i].events.splice(j, 1);
+                            trip.save();
+                            res.send({
+                                status: 200,
+                                data: trip
+                            })
+                        }
+                    }
+                }
+            }
         }
         // editing the itinerary
         // if (req.body.description && req.body.event) {

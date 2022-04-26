@@ -17,14 +17,16 @@ const ModalComponent = (props) => {
             <h2>{props.trip.tripName} to {props.trip.destinations}</h2>
             <h3>Dates: {props.tripStartFormatted} - {props.tripEndFormatted}</h3>
             <h4>Itinerary: </h4>
-            {[...Array(totalDays)].map((elementInArray, index)=>{
-                return (
-                    <div>
-                        <p className="day-component">Day {index+1}: </p>
-                        <DayComponent index={index} trip={props.trip} tripStart={props.tripStart} ></DayComponent>
-                    </div>
-                )   
-            })}
+            <div className="day-container">
+                {[...Array(totalDays)].map((elementInArray, index)=>{
+                    return (
+                        <div className="day-component">
+                            <p className="day-component">Day {index+1}: </p>
+                            <DayComponent index={index} trip={props.trip} tripStart={props.tripStart} ></DayComponent>
+                        </div>
+                    )   
+                })}
+            </div>
             <button onClick={props.toggleShowing}>Go back</button>
         </div>
     )
