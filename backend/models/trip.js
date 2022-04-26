@@ -15,17 +15,17 @@ const tripSchema = new Schema ({
     },
     packingList: [{type: String}],
     itinerary: [
-        {day: {
+        {
             dateTime: {type: Date},
             description: {type: String},
             events: [
                 {
                     eventName: {type: String},
-                    eventDate: {type: Date},
+                    eventTime: {type: String},
                     eventPrice: {type: Number}
                 }
             ]
-        }},
+        },
     ],
     img: {type: String, require: false}
 });

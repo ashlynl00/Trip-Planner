@@ -47,6 +47,7 @@ const NavComponent = (props) => {
                         <li onClick={(e)=>{
                             e.preventDefault();
                             getTrips();
+                            navigate('/trips');
                         }}>Trips</li>
                     </Link>
                     </>
