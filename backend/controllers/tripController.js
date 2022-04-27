@@ -77,7 +77,17 @@ router.put('/:id', async (req, res)=>{
         const trip = await Trip.findById(req.params.id);
         console.log(req.body.deleteItem)
         // add description and create a trip
-        if (req.body.description) {
+        if (req.body.img) {
+            console.log('yay inside req.body.img');
+            console.log(req.body.img);
+            trip.img = req.body.img
+            trip.save();
+            console.log(trip.img);
+            res.send({
+                status: 200,
+                data: trip
+            });
+        }else if (req.body.description) {
             console.log(req.body.description.description);
             // create an object to push to itinerary array
             let itineraryItem = {
