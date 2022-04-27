@@ -75,6 +75,7 @@ router.put('/:id', async (req, res)=>{
         // find the item that was clicked on
         // const neighborhood = await Neighborhood.findByIdAndUpdate(req.params.id, req.body, {new: true});
         const trip = await Trip.findById(req.params.id);
+        console.log(req.body.deleteItem)
         // add description and create a trip
         if (req.body.description) {
             console.log(req.body.description.description);
@@ -186,6 +187,57 @@ router.put('/:id', async (req, res)=>{
                             })
                         }
                     }
+                }
+            }
+        } else if (req.body.listItem && req.body.listItemToEdit == null) {
+            console.log('yay we have received a req for adding list item!');
+            console.log(req.body.listItem);
+            let newListItem = {
+                itemName: req.body.listItem.itemName,
+                itemQuantity: req.body.listItem.itemQuantity
+            }
+            console.log(newListItem);
+            // now push to itinerary array for this trip
+            trip.packingList.push(newListItem);
+            trip.save();
+            console.log(trip.packingList);
+            res.send({
+                status: 200,
+                data: trip
+            });
+        } else if (req.body.listItemToEdit !== null && req.body.deleteItem == null) {
+            console.log('yay we are inside listItemToEdit if statement');
+            // first we need to find the list item in the packing list array
+            for (let i=0; i<trip.packingList.length; i++) {
+                if (trip.packingList[i]._id == req.body.listItemToEdit) {
+                    console.log('we have a match!');
+                    console.log(trip.packingList[i].itemName);
+                    trip.packingList[i].itemName = req.body.listItem.itemName;
+                    trip.packingList[i].itemQuantity = req.body.listItem.itemQuantity;
+                    trip.save();
+                    console.log('this is the new editted packingList');
+                    console.log(trip.packingList);
+                    res.send({
+                        status: 200,
+                        data: trip
+                    })
+                }
+            }
+        } else if (req.body.deleteItem) {
+            console.log('delete item is true and is inside if statement');
+            for (let i=0; i<trip.packingList.length; i++) {
+                if (trip.packingList[i]._id == req.body.listItemToEdit) {
+                    console.log('yay we found a list item that matches the one we are trying to delete!');
+                    console.log('deleting this one: ');
+                    console.log(trip.packingList[i]);
+                    trip.packingList.splice(i, 1);
+                    trip.save();
+                    console.log('here is the saved trip packingList now: ');
+                    console.log(trip.packingList);
+                    res.send({
+                        status: 200,
+                        data: trip
+                    });
                 }
             }
         }

@@ -13,7 +13,12 @@ const tripSchema = new Schema ({
         cost: {type: Number},
         booked: {type: Boolean}
     },
-    packingList: [{type: String}],
+    packingList: [
+        {
+            itemName: {type: String},
+            itemQuantity: {type: Number}
+        }
+    ],
     itinerary: [
         {
             dateTime: {type: Date},

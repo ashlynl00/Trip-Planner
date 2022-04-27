@@ -1,4 +1,6 @@
 import DayComponent from "./DayComponent";
+import { useState } from "react";
+import PackingListComponent from "./PackingListComponent";
 
 const ModalComponent = (props) => {
     const getDifferenceInDays = (date1, date2) => {
@@ -27,6 +29,8 @@ const ModalComponent = (props) => {
                     )   
                 })}
             </div>
+            <PackingListComponent trip={props.trip}></PackingListComponent>
+            <br></br><br></br>
             <button onClick={props.toggleShowing}>Go back</button>
         </div>
     )
