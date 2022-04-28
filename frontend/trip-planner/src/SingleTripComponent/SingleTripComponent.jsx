@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ModalComponent from "./ModalComponent";
+import ModalComponent from "./ModalComponent/ModalComponent";
 import moment from 'moment';
 
 const SingleTripComponent = (props) => {

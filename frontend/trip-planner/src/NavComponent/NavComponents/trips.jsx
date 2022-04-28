@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import apiUrl from "../../apiConfig";
-import SingleTripComponent from "./SingleTripComponent/SingleTripComponent";
+import SingleTripComponent from "../../SingleTripComponent/SingleTripComponent";
 
 const Trips = (props) => {
     const navigate = useNavigate();

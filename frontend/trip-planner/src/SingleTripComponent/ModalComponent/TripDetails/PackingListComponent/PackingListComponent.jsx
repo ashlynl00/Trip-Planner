@@ -1,5 +1,5 @@
 import { useState } from "react";
-import apiUrl from "../../../apiConfig";
+import apiUrl from "../../../../apiConfig";
 import { useNavigate } from "react-router-dom";
 import EditListItem from "./EditListItem";
 

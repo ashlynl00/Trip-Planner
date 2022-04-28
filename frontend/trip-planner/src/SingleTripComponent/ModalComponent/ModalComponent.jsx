@@ -1,9 +1,9 @@
-import DayComponent from "./DayComponent";
+import DayComponent from "./TripDetails/DayComponent";
 import { useState } from "react";
-import PackingListComponent from "./PackingListComponent";
-import apiUrl from "../../../apiConfig";
-import PeopleComponent from "./PeopleComponent";
-import Transportation from "./Transportation";
+import PackingListComponent from "./TripDetails/PackingListComponent/PackingListComponent";
+import apiUrl from "../../apiConfig";
+import PeopleComponent from "./TripDetails/PeopleComponent";
+import Transportation from "./TripDetails/Transportation";
 
 const ModalComponent = (props) => {
     const [showing, setShowing] = useState(false);

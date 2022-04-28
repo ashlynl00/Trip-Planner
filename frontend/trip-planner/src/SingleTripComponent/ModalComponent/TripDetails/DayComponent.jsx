@@ -3,7 +3,7 @@ import { useState } from "react";
 import apiUrl from "../../../apiConfig";
 import moment from 'moment';
 import { useNavigate } from "react-router-dom";
-import EventComponent from "./EventComponents";
+import EventComponent from "./ItineraryComponent/EventComponents";
 
 const DayComponent = (props) => {
     let navigate = useNavigate();
