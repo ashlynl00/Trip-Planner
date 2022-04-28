@@ -17,7 +17,7 @@ const SingleTripComponent = (props) => {
     return (
         <div className="single-trip-item">
             {showing ?
-                <ModalComponent trip={props.trip} toggleShowing={toggleShowing} tripStart={tripStart} tripEnd={tripEnd} tripStartFormatted={tripStartFormatted} tripEndFormatted={tripEndFormatted}></ModalComponent>
+                <ModalComponent trip={props.trip} toggleShowing={toggleShowing} tripStart={tripStart} tripEnd={tripEnd} tripStartFormatted={tripStartFormatted} tripEndFormatted={tripEndFormatted} users={props.users}></ModalComponent>
                 :
                 <div className="trip-preview" onClick={toggleShowing}>
                     <h3>{props.trip.tripName}</h3>

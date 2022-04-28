@@ -78,7 +78,7 @@ const Trips = (props) => {
                         <ul>
                             {currentUserTrips.map((trip)=> {
                                 return (
-                                    <li><SingleTripComponent trip={trip} /></li>
+                                    <li><SingleTripComponent trip={trip} users={props.users} /></li>
                                 )
                             })}
                         </ul>

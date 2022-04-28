@@ -2,6 +2,7 @@ import DayComponent from "./DayComponent";
 import { useState } from "react";
 import PackingListComponent from "./PackingListComponent";
 import apiUrl from "../../../apiConfig";
+import PeopleComponent from "./PeopleComponent";
 
 const ModalComponent = (props) => {
     const [showing, setShowing] = useState(false);
@@ -94,6 +95,7 @@ const ModalComponent = (props) => {
                 })}
             </div>
             <PackingListComponent trip={props.trip}></PackingListComponent>
+            <PeopleComponent trip={props.trip} users={props.users}></PeopleComponent>
             <br></br><br></br>
             <button onClick={props.toggleShowing}>Go back</button>
         </div>
