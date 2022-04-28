@@ -81,7 +81,18 @@ router.put('/:id', async (req, res)=>{
         const trip = await Trip.findById(req.params.id);
 
         // check what req.body sent in
-        if (req.body.transportationInfo) {
+        if (req.body.userIdToAdd) {
+            console.log('inside useridtoadd');
+            console.log(req.body.userIdToAdd);
+            trip.userIds.push(req.body.userIdToAdd);
+            trip.save();
+            console.log('here is now the userIds for this trip: ');
+            console.log(trip.userIds);
+            res.send({
+                status: 200,
+                data: trip
+            });
+        } else if (req.body.transportationInfo) {
             console.log('yay inside transportation info');
             console.log(req.body.transportationInfo);
             // start setting information in trip model
@@ -306,7 +317,7 @@ router.put('/:id', async (req, res)=>{
                 };
 
             };
-            
+
         };
     } catch (err) {
         res.send({

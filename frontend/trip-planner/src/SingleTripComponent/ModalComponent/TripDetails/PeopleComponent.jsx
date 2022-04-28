@@ -10,58 +10,178 @@ const PeopleComponent = (props) => {
     // set up state for users to be stored
     const [users, setUsers] = useState([]);
     const [people, setPeople] = useState([]);
+    const [usernames, setUsernames] = useState([]);
+    const [showing, setShowing] = useState(false);
+    
+    const toggleShowing = () => {
+        setShowing(!showing);
+    };
 
     // api request for all users
     const getUsers = async () => {
 
         try {
-          const users = await fetch(`${apiUrl}/users`);
-          const parsedUsers = await users.json();
-          setUsers([
-              ...users,
-              parsedUsers.data
-          ]);
-          console.log(users);
+          const usersResponse = await fetch(`${apiUrl}/users`);
+          const parsedUsers = await usersResponse.json();
+
+          if (parsedUsers.status == 200) {
+            console.log('yay it worked!');
+            console.log(parsedUsers);
+            console.log(parsedUsers.status);
+            console.log(parsedUsers.data);
+            setUsers(parsedUsers.data);
+            console.log(users);
+            // setUsers(
+            //     ...users,
+            //     parsedUsers.data
+            // );
+            // console.log(users);
+          } else {
+              console.log('oh no it did not work');
+          };
+          
         } catch (err) {
             console.log(err);
         };
-
+        findMatchingUsers();
     };
 
-    // find users that match trip users
-    for (let i=0; i<props.trip.userIds.length; i++) {
-        console.log('in first for loop');
-        console.log(props.trip.userIds[i]);
-        console.log(users);
 
-        // for each userId we need to get the username of that user
-        // so we need to match the id with the username from user state
-        for (let j=0; j<users.length; j++) {
-            console.log('in second for loop');
-            console.log(users[j]._id);
+    let peopleArray = [];
+    const findMatchingUsers = () => {
+        // find users that match trip users
+        console.log(props.trip.userIds.length);
+        for (let i=0; i<props.trip.userIds.length; i++) {
+            console.log('in first for loop');
+            console.log(props.trip.userIds[i]);
+            console.log(users);
 
-            if (props.trip.userIds[i] == users[j]._id) {
-                // now we want to push this user's username to people state array
-                setPeople([
-                    ...people,
-                    users[j].username
-                ])
-                console.log(people);
+            // for each userId we need to get the username of that user
+            // so we need to match the id with the username from user state
+            for (let j=0; j<users.length; j++) {
+                console.log('in second for loop');
+                console.log(users[j]._id);
+
+                if (props.trip.userIds[i] == users[j]._id) {
+                    console.log('inside if statement');
+                    console.log(users[j].username);
+                    // now we want to push this user's username to people state array
+                    peopleArray.push(users[j].username);
+                    // setPeople([
+                    //     ...people,
+                    //     users[j].username
+                    // ])
+                    console.log(peopleArray);
+                };
+
             };
 
         };
+        // set people to be equal to new array
+        setPeople([peopleArray]);
+        console.log(people);
+    }
+
+    // first check that the username entered is one that exists
+    // store value in state
+    const [addUsername, setAddUsername] = useState({
+        username: ''
+    });
+    // this should be a get route
+    const handleInputChange = (e) => {
+        setAddUsername({
+            ...addUsername,
+            [e.target.name]: e.target.value
+        });
+        console.log(addUsername);
+    };
+
+    // edit user trip to add a user to userIds array
+    const sendUserToTrip = async (tripToEdit, userIdToAdd) => {
+        const apiResponse = await fetch(`${apiUrl}/trips/${tripToEdit}`, {
+            method: "PUT",
+            body: JSON.stringify({userIdToAdd: userIdToAdd}),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const parsedResponse = await apiResponse.json();
+        
+        if (parsedResponse.status == 200) {
+            console.log('yay it worked!!!');
+            // push this to people state
+            peopleArray.push(addUsername);
+            console.log(peopleArray);
+            setPeople([peopleArray]);
+            console.log(people);
+        } else {
+            console.log('it did not work:(');
+        };
 
     };
-    
-    // useEffect(getUsers, []);
+
+    // send a request to backend to check if this is even an account
+    const checkUser = async (username) => {
+
+        const apiResponse = await fetch(`${apiUrl}/users/add`, {
+            method: "POST",
+            body: JSON.stringify(username),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        const parsedResponse = await apiResponse.json();
+        console.log(parsedResponse);
+
+        if (parsedResponse.status == 200 && parsedResponse.data == 'not a possible user:(') {
+            console.log('ohr nor wrong username!');
+            alert('this username does not exist!');
+        } else {
+            console.log('yay it workkkkeddd');
+            console.log(parsedResponse.data);
+            // add it to the trip now!
+            // we want to edit the trip!
+            sendUserToTrip(props.trip._id, parsedResponse.data._id);
+        };
+
+    };
+
+    // send submission to api request and reset state
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        checkUser(addUsername);
+        setAddUsername({
+            username: ''
+        });
+        toggleShowing();
+    };
+
+    useEffect(()=>{
+        getUsers();
+    }, []);
     return (
         <div>
             <h3>People: </h3>
             <ul>
-                {props.trip.userIds.map((user)=>{
-                    <li>{user}</li>
+                {people.map((user)=>{
+                    return(
+                        <li>{user}</li>
+                    )
                 })}
             </ul>
+            { showing ?
+                <>
+                    <h3>Please add the user's username that you would like to add to this trip: </h3>
+                    <form onSubmit={handleSubmit}>
+                        <input name="username" type="text" onChange={handleInputChange} value={addUsername.username}></input>
+                        <button type="submit">Submit</button>
+                    </form>
+                </>
+                :
+                <button onClick={toggleShowing}>Add Person to this Trip</button>
+            }
         </div>
     )
 };

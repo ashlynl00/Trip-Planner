@@ -68,6 +68,39 @@ router.post("/login", async (req, res)=>{
 
 
 
+// add to trip account
+router.post('/add', async (req, res)=>{
+
+    try {
+        const possibleUser = await User.findOne({username: req.body.username});
+
+        if (possibleUser) {
+            console.log('yay this is a possible user!');
+            console.log(possibleUser);
+            res.send({
+                status: 200,
+                data: possibleUser
+            });
+        } else {
+            console.log('not a possible user:(');
+            res.send({
+                status: 200,
+                data: 'not a possible user:('
+            });
+        };
+
+    } catch(err) {
+        console.log('in catch');
+        res.send({
+            status: 500,
+            data: err
+        });
+    };
+
+});
+
+
+
 // Create route
 router.post('/', async (req, res)=>{
 
