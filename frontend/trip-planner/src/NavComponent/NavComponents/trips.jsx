@@ -27,6 +27,19 @@ const Trips = (props) => {
     //     }
     // }
 
+    const getTrips = async () => {
+        console.log('inside gettrips')
+        const apiResponse = await  fetch(`${apiUrl}/trips`);
+        const parsedResponse = await apiResponse.json();
+        if (parsedResponse.status == 200) {
+        props.setTrips(parsedResponse.data)
+        console.log(props.trips);
+        } else {
+        console.log('status was 500, did not get trips')
+        }
+        navigate('/trips')
+    }
+
     let currentUserTrips = [];
     const userTrips = () => {
         console.log('inside function')
@@ -69,6 +82,9 @@ const Trips = (props) => {
     // window.onload=()=>{
     //     document.getElementById('show-trips').click();
     // }
+    useEffect(()=>{
+        getTrips()
+    }, []);
     return (
         <div>
             {parsedCurrentUser !== null ?

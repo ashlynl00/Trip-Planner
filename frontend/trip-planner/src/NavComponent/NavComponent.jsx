@@ -8,18 +8,18 @@ const NavComponent = (props) => {
         console.log(localStorage.getItem('currentUser'));
         navigate('/login');
     };
-    const getTrips = async () => {
-        console.log('inside gettrips')
-        const apiResponse = await  fetch(`${apiUrl}/trips`);
-        const parsedResponse = await apiResponse.json();
-        if (parsedResponse.status == 200) {
-        props.setTrips(parsedResponse.data)
-        console.log(props.trips);
-        } else {
-        console.log('status was 500, did not get trips')
-        }
-        navigate('/trips')
-    }
+    // const getTrips = async () => {
+    //     console.log('inside gettrips')
+    //     const apiResponse = await  fetch(`${apiUrl}/trips`);
+    //     const parsedResponse = await apiResponse.json();
+    //     if (parsedResponse.status == 200) {
+    //     props.setTrips(parsedResponse.data)
+    //     console.log(props.trips);
+    //     } else {
+    //     console.log('status was 500, did not get trips')
+    //     }
+    //     navigate('/trips')
+    // }
     return (
         <nav>
             <h2>Logo here</h2>
@@ -43,12 +43,15 @@ const NavComponent = (props) => {
                     <>
                     <li>Account</li>
                     <li onClick={logout} id='logout-nav'>Logout</li>
-                    <Link to='/trips'>
+                    {/* <Link to='/trips'>
                         <li onClick={(e)=>{
                             e.preventDefault();
                             getTrips();
                             navigate('/trips');
                         }}>Trips</li>
+                    </Link> */}
+                    <Link to='/trips'>
+                        <li>Trips</li>
                     </Link>
                     </>
                 }
