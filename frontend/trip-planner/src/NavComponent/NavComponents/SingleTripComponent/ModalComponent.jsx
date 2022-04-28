@@ -3,6 +3,7 @@ import { useState } from "react";
 import PackingListComponent from "./PackingListComponent";
 import apiUrl from "../../../apiConfig";
 import PeopleComponent from "./PeopleComponent";
+import Transportation from "./Transportation";
 
 const ModalComponent = (props) => {
     const [showing, setShowing] = useState(false);
@@ -98,6 +99,7 @@ const ModalComponent = (props) => {
                     )   
                 })}
             </div>
+            <Transportation trip={props.trip}></Transportation>
             <PackingListComponent trip={props.trip}></PackingListComponent>
             <PeopleComponent trip={props.trip} users={props.users}></PeopleComponent>
             <br></br><br></br>

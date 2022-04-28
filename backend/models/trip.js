@@ -8,7 +8,18 @@ const tripSchema = new Schema ({
     userIds: [{type: String}],
     destinations: [{type:String, required: true}],
     mainTransportation: {
-        when: {type: Date},
+        mode: {type: String},
+        destination: {type: String},
+        when: {
+            departure: {
+                departureDate: {type: Date},
+                departureTime: {type: String}
+            },
+            returning: {
+                returningDate: {type: Date},
+                returningTime: {type: String}
+            }
+        },
         cost: {type: Number},
         booked: {type: Boolean}
     },

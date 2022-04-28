@@ -77,7 +77,26 @@ router.put('/:id', async (req, res)=>{
         const trip = await Trip.findById(req.params.id);
         console.log(req.body.deleteItem)
         // add description and create a trip
-        if (req.body.img) {
+        if (req.body.transportationInfo) {
+            console.log('yay inside transportation info');
+            console.log(req.body.transportationInfo);
+            // start setting information in trip model
+            trip.mainTransportation.mode = req.body.transportationInfo.mode;
+            trip.mainTransportation.destination = req.body.transportationInfo.destination;
+            trip.mainTransportation.when.departure.departureDate = req.body.transportationInfo.departureDate;
+            trip.mainTransportation.when.departure.departureTime = req.body.transportationInfo.departureTime;
+            trip.mainTransportation.when.returning.returningDate = req.body.transportationInfo.returningDate;
+            trip.mainTransportation.when.returning.returningTime = req.body.transportationInfo.returningTime;
+            trip.mainTransportation.cost = req.body.transportationInfo.cost;
+            trip.mainTransportation.booked = req.body.transportationInfo.booked;
+            trip.save();
+            console.log('here is main transportation now: ');
+            console.log(trip.mainTransportation);
+            res.send({
+                status: 200,
+                data: trip
+            });
+        }else if (req.body.img) {
             console.log('yay inside req.body.img');
             console.log(req.body.img);
             trip.img = req.body.img
