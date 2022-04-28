@@ -69,14 +69,17 @@ const EventComponent = (props) => {
             <p>Price: {props.event.eventPrice}</p>
             <p>Time: {props.event.eventTime}</p>
             {showingEventForm ?
-                <form onSubmit={(e)=>{
-                    e.preventDefault();
-                    submitEditEvent(props.event._id)}}>
-                    Event Name: <input type='text' name='eventName' value={editEvent.eventName} onChange={handleInputChange}></input>
-                    Event Time: <input type='time' name='eventTime' value={editEvent.eventTime} onChange={handleInputChange}></input>
-                    Event Price: <input type='number' name='eventPrice' value={editEvent.eventPrice} onChange={handleInputChange}></input>
-                    <button type='submit'>Submit</button>
-                </form>
+                <>
+                    <form onSubmit={(e)=>{
+                        e.preventDefault();
+                        submitEditEvent(props.event._id)}}>
+                        Event Name: <input type='text' name='eventName' value={editEvent.eventName} onChange={handleInputChange}></input>
+                        Event Time: <input type='time' name='eventTime' value={editEvent.eventTime} onChange={handleInputChange}></input>
+                        Event Price: <input type='number' name='eventPrice' value={editEvent.eventPrice} onChange={handleInputChange}></input>
+                        <button type='submit'>Submit</button>
+                    </form>
+                    <button onClick={toggleShowing}>Cancel</button>
+                </>
                 :
                 <button onClick={toggleShowing}>Edit Event</button>
             }

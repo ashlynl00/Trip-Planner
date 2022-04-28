@@ -67,6 +67,7 @@ const ModalComponent = (props) => {
                         <input onChange ={ (e)=>setImage(e.target.files[0])} type="file" name="img" accept="image/png, image/jpeg" placeholder='upload image'></input>
                         <button type="submit">Submit</button>
                     </form>
+                    <button onClick={toggleShowing}>Cancel</button>
                     :
                     <button onClick={toggleShowing}>Upload Image</button>
                 </>
@@ -74,10 +75,13 @@ const ModalComponent = (props) => {
                 <>
                     <img src={props.trip.img}></img>
                     {showing ?
-                        <form onSubmit={handleImgSubmit}>
-                            <input onChange ={ (e)=>setImage(e.target.files[0])} type="file" name="img" accept="image/png, image/jpeg" placeholder='upload image'></input>
-                            <button type="submit">Submit</button>
-                        </form>
+                        <>
+                            <form onSubmit={handleImgSubmit}>
+                                <input onChange ={ (e)=>setImage(e.target.files[0])} type="file" name="img" accept="image/png, image/jpeg" placeholder='upload image'></input>
+                                <button type="submit">Submit</button>
+                            </form>
+                            <button onClick={toggleShowing}>Cancel</button>
+                        </>
                         :
                         <button onClick={toggleShowing}>Edit Image</button>
                     }
@@ -97,7 +101,7 @@ const ModalComponent = (props) => {
             <PackingListComponent trip={props.trip}></PackingListComponent>
             <PeopleComponent trip={props.trip} users={props.users}></PeopleComponent>
             <br></br><br></br>
-            <button onClick={props.toggleShowing}>Go back</button>
+            <button onClick={props.toggleShowing}>Back</button>
         </div>
     )
 }

@@ -107,10 +107,13 @@ const DayComponent = (props) => {
                 <>
                     <p>Description: Not added</p>
                     {showing ?
-                        <form onSubmit={submitAddDescription}>
-                            Description: <textarea type='text' name='description' value={addDescription.description} onChange={handleInputChangeDescription}></textarea>
-                            <button type='submit'>Submit</button>
-                        </form>
+                        <>
+                            <form onSubmit={submitAddDescription}>
+                                Description: <textarea type='text' name='description' value={addDescription.description} onChange={handleInputChangeDescription}></textarea>
+                                <button type='submit'>Submit</button>
+                            </form>
+                            <button onClick={toggleShowing}>Cancel</button>
+                        </>
                         :
                         <button onClick={toggleShowing}>Add Description</button>
                     }
@@ -132,10 +135,13 @@ const DayComponent = (props) => {
                         <>
                             <p>Description: Not added</p>
                             {showing ?
-                                <form onSubmit={submitAddDescription}>
-                                    Description: <textarea type='text' name='description' value={addDescription.description} onChange={handleInputChangeDescription}></textarea>
-                                    <button type='submit'>Submit</button>
-                                </form>
+                                <>
+                                    <form onSubmit={submitAddDescription}>
+                                        Description: <textarea type='text' name='description' value={addDescription.description} onChange={handleInputChangeDescription}></textarea>
+                                        <button type='submit'>Submit</button>
+                                    </form>
+                                    <button onClick={toggleShowing}>Cancel</button>
+                                </>
                                 :
                                 <button onClick={toggleShowing}>Add Description</button>
                             }
@@ -154,12 +160,15 @@ const DayComponent = (props) => {
                         })}
                     </ul>
                     {showingEventForm ?
-                        <form onSubmit={submitAddEvent}>
-                            Event Name: <input type='text' name='eventName' value={addEvent.eventName} onChange={handleInputChangeEvent}></input>
-                            Event Time: <input type='time' name='eventTime' value={addEvent.eventTime} onChange={handleInputChangeEvent}></input>
-                            Event Price: <input type='number' name='eventPrice' value={addEvent.eventPrice} onChange={handleInputChangeEvent}></input>
-                            <button type='submit'>Submit</button>
-                        </form>
+                        <>
+                            <form onSubmit={submitAddEvent}>
+                                Event Name: <input type='text' name='eventName' value={addEvent.eventName} onChange={handleInputChangeEvent}></input>
+                                Event Time: <input type='time' name='eventTime' value={addEvent.eventTime} onChange={handleInputChangeEvent}></input>
+                                Event Price: <input type='number' name='eventPrice' value={addEvent.eventPrice} onChange={handleInputChangeEvent}></input>
+                                <button type='submit'>Submit</button>
+                            </form>
+                            <button onClick={toggleShowingEventForm}>Cancel</button>
+                        </>
                         :
                         <button onClick={toggleShowingEventForm}>Add Event</button>
                     }

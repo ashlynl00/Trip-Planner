@@ -59,22 +59,28 @@ const PackingListComponent = (props) => {
                         })}
                     </ul>
                     {showing ?
-                        <form onSubmit={submitListItem}>
-                            Item Name : <input type='text' name='itemName' value={listItem.itemName} onChange={handleInputChange}></input>
-                            Quantity: <input type='number' name='itemQuantity' value={listItem.itemQuantity} onChange={handleInputChange}></input>
-                            <button type="submit">Submit</button>
-                        </form>
+                        <>
+                            <form onSubmit={submitListItem}>
+                                Item Name : <input type='text' name='itemName' value={listItem.itemName} onChange={handleInputChange}></input>
+                                Quantity: <input type='number' name='itemQuantity' value={listItem.itemQuantity} onChange={handleInputChange}></input>
+                                <button type="submit">Submit</button>
+                            </form>
+                            <button onClick={toggleShowing}>Cancel</button>
+                        </>
                         :
                         <button onClick={toggleShowing}>Add to Packing List</button>
                     }
                 </>
                 :
                 showing ?
-                    <form onSubmit={submitListItem}>
-                        Item Name : <input type='text' name='itemName' value={listItem.itemName} onChange={handleInputChange}></input>
-                        Quantity: <input type='number' name='itemQuantity' value={listItem.itemQuantity} onChange={handleInputChange}></input>
-                        <button type="submit">Submit</button>
-                    </form>
+                    <>
+                        <form onSubmit={submitListItem}>
+                            Item Name : <input type='text' name='itemName' value={listItem.itemName} onChange={handleInputChange}></input>
+                            Quantity: <input type='number' name='itemQuantity' value={listItem.itemQuantity} onChange={handleInputChange}></input>
+                            <button type="submit">Submit</button>
+                        </form>
+                        <button onClick={toggleShowing}>Cancel</button>
+                    </>
                     :
                     <button onClick={toggleShowing}>Add to Packing List</button>
                 

@@ -33,11 +33,14 @@ const EditListItem = (props) => {
     return (
         <>
             {showEditForm ?
-                <form onSubmit={submitEdittedItem}>
-                    Item Name : <input type='text' name='itemName' value={listItem.itemName} onChange={handleInputChange}></input>
-                    Quantity: <input type='number' name='itemQuantity' value={listItem.itemQuantity} onChange={handleInputChange}></input>
-                    <button type="submit">Submit</button>
-                </form>
+                <>
+                    <form onSubmit={submitEdittedItem}>
+                        Item Name : <input type='text' name='itemName' value={listItem.itemName} onChange={handleInputChange}></input>
+                        Quantity: <input type='number' name='itemQuantity' value={listItem.itemQuantity} onChange={handleInputChange}></input>
+                        <button type="submit">Submit</button>
+                    </form>
+                    <button onClick={toggleShowEditForm}>Cancel</button>
+                </>
                 :
                 <button onClick={toggleShowEditForm}>Edit</button> 
             }
