@@ -1,8 +1,12 @@
+// import tools
 import { useState } from 'react';
 import moment from 'moment';
+
+// import apiconfig for api url
 import apiUrl from '../../../apiConfig';
 
 const Transportation = (props) => {
+    // create state to store transportation info
     const [transportationInfo, setTransportationInfo] = useState({
         mode: '',
         departureDate: '',
@@ -13,10 +17,14 @@ const Transportation = (props) => {
         cost: '',
         booked: ''
     });
+
+    // create state to store if an element is being shown or not
     const [showing, setShowing] = useState(false);
     const toggleShowing = () => {
         setShowing(!showing);
     };
+
+    // set departure date and returning dates based on if they are already in the db or not
     console.log(props.trip);
     // change travel date to moment format
     let departureDate = null;
@@ -25,12 +33,16 @@ const Transportation = (props) => {
     if (props.trip.mainTransportation !== undefined) {
         departureDate = moment.utc(props.trip.mainTransportation.when.departure.departureDate).format('MM/DD/YYYY');
         returningDate = moment.utc(props.trip.mainTransportation.when.returning.returningDate).format('MM/DD/YYYY');
+
         if (props.trip.mainTransportation.booked == true) {
             booked = 'True';
         } else {
             booked = 'False';
-        }
+        };
+
     };
+
+    // keep track of any changes from the input fields
     const handleInputChange = (e) => {
         setTransportationInfo({
             ...transportationInfo,
@@ -38,7 +50,10 @@ const Transportation = (props) => {
         });
         console.log(transportationInfo);
     };
+
+    // send transportation state to 
     const sendTransportationInfo = async (tripToEdit, transportationInfo) => {
+
         const apiResponse = await fetch(`${apiUrl}/trips/${tripToEdit}`, {
             method: "PUT",
             body: JSON.stringify({transportationInfo: transportationInfo}),
@@ -46,13 +61,19 @@ const Transportation = (props) => {
                 "Content-Type": "application/json"
             }
         });
+
         const parsedResponse = await apiResponse.json();
+        
+        // handle response from api
         if (parsedResponse.status == 200) {
             console.log('yay it worked!');
         } else {
             console.log('sad days');
-        }
-    }
+        };
+
+    };
+
+    // reset state and send state info to api request
     const handleSubmit = (e) => {
         e.preventDefault();
         // send data to fetch request
@@ -69,7 +90,8 @@ const Transportation = (props) => {
             booked: ''
         });
         toggleShowing();
-    }
+    };
+    
     return (
         <>
             <h3>Transportation: </h3>

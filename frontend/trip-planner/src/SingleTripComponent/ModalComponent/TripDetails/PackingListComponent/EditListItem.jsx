@@ -1,20 +1,30 @@
+// import tools
 import { useState } from "react";
 
+
+
 const EditListItem = (props) => {
+    // store whether or not an element is shown on page in state
     const [showEditForm, setShowEditForm] = useState(false);
     const toggleShowEditForm = () => {
         setShowEditForm(!showEditForm);
     };
+
+    // store current list item
     const [listItem, setListItem] = useState({
         itemName: '',
         itemQuantity: ''
     });
+
+    // handle input change in list item state
     const handleInputChange = (e) => {
         setListItem({
             ...listItem,
             [e.target.name]: e.target.value
         })
     };
+
+    // send list item to api request function and reset input fields and state for list item
     const submitEdittedItem = (e) => {
         e.preventDefault();
         props.sendListItem(listItem, props.trip._id, props.listItem._id);
@@ -24,12 +34,15 @@ const EditListItem = (props) => {
         });
         toggleShowEditForm();
     };
+
+    // send delete argument to api request to fulfill
     const deleteItem = (e) => {
         e.preventDefault();
         let listItemArg = null;
         let deleteItem = true;
         props.sendListItem(listItemArg, props.trip._id, props.listItem._id, deleteItem);
-    }
+    };
+    
     return (
         <>
             {showEditForm ?

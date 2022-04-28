@@ -1,3 +1,4 @@
+// import all of the dependencies
 require('dotenv').config();
 const {urlencoded} = require('express');
 const express = require('express');
@@ -15,13 +16,19 @@ const store = new MongoDBStore({
 const tripController = require('./controllers/tripController');
 const userController = require('./controllers/userController');
 
+
+
 const corsOptions ={
     origin:'*', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200,
- }
+}
+
+
 // Configuration
 const db = mongoose.connection;
+
+
 
 // Connect to Mongo
 mongoose.connect(process.env.MONGO_URI, {
@@ -29,6 +36,8 @@ mongoose.connect(process.env.MONGO_URI, {
     useUnifiedTopology: true
 });
 console.log(process.env.MONGO_URI);
+
+
 
 // Connection Error/Success
 db.on("error", (err) => console.log(err.message + " is Mongod not running?"));
@@ -38,13 +47,14 @@ db.on("disconnected", () => console.log("mongo disconnected"));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(morgan('short'));
-//app.use(cors());
 app.use(cors(corsOptions));
 
 
 // preroute
 app.use('/trips', tripController);
 app.use('/users', userController);
+
+
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, ()=>{

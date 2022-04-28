@@ -1,16 +1,26 @@
-import DayComponent from "./TripDetails/DayComponent";
-import { useState } from "react";
-import PackingListComponent from "./TripDetails/PackingListComponent/PackingListComponent";
+// import apiconfig for api url
 import apiUrl from "../../apiConfig";
+
+//import tools
+import { useState } from "react";
+
+//import components
+import DayComponent from "./TripDetails/DayComponent";
+import PackingListComponent from "./TripDetails/PackingListComponent/PackingListComponent";
 import PeopleComponent from "./TripDetails/PeopleComponent";
 import Transportation from "./TripDetails/Transportation";
 
+
+
 const ModalComponent = (props) => {
+    // set up showing state for when to show form 
     const [showing, setShowing] = useState(false);
     const toggleShowing = () => {
         setShowing(!showing);
     };
     const [image, setImage] = useState('');
+
+    // send image info from cloudinary to db
     const sendImg = async (tripToEdit, img) => {
         const apiResponse = await fetch(`${apiUrl}/trips/${tripToEdit}`, {
             method: "PUT",
@@ -19,20 +29,26 @@ const ModalComponent = (props) => {
                 "Content-Type": "application/json"
             }
         });
+
         const parsedResponse = await apiResponse.json();
+
         if (parsedResponse.status == 200) {
             console.log('yay it worked!');
         } else {
             console.log('sad days');
-        }
-    }
+        };
+
+    };
+
     const handleImgSubmit = async (e) => {
         e.preventDefault();
+        // create a new form in order to send image data correctly to cloudinary
         const formData = new FormData();
         console.log("image prop", image)
         formData.append('file', image)
         formData.append('upload_preset', 'g88dstkq')
 
+        // send image info to cloudinary api, so the linked response is saved to send to db
         const imageUpload = await fetch('https://api.cloudinary.com/v1_1/dcbh0v5ds/image/upload', {
             method: "POST",
             body: formData
@@ -45,11 +61,14 @@ const ModalComponent = (props) => {
         sendImg(props.trip._id, imgLink);
         setImage('');
         toggleShowing();
-    }
+    };
+
+
     const getDifferenceInDays = (date1, date2) => {
         const diffInMs = Math.abs(date2 - date1);
         return diffInMs / (1000 * 60 * 60 * 24);
-    }
+    };
+
     let date1 = new Date(props.tripStart);
     let date2 = new Date(props.tripEnd);
     console.log('this is date1')
@@ -57,6 +76,7 @@ const ModalComponent = (props) => {
     console.log(date2);
     let totalDays = getDifferenceInDays(date1, date2);
     console.log(totalDays)
+    
     return (
         <div className="trip-modal">
             <h2>{props.trip.tripName} to {props.trip.destinations}</h2>

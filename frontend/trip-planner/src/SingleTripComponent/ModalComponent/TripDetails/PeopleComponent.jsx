@@ -1,10 +1,19 @@
+// import tools
 import { useEffect, useState } from "react";
+
+// import apiconfig for api url
 import apiUrl from "../../../apiConfig";
 
+
+
 const PeopleComponent = (props) => {
+    // set up state for users to be stored
     const [users, setUsers] = useState([]);
     const [people, setPeople] = useState([]);
+
+    // api request for all users
     const getUsers = async () => {
+
         try {
           const users = await fetch(`${apiUrl}/users`);
           const parsedUsers = await users.json();
@@ -15,17 +24,22 @@ const PeopleComponent = (props) => {
           console.log(users);
         } catch (err) {
             console.log(err);
-        }
-      } 
+        };
+
+    };
+
+    // find users that match trip users
     for (let i=0; i<props.trip.userIds.length; i++) {
         console.log('in first for loop');
         console.log(props.trip.userIds[i]);
         console.log(users);
+
         // for each userId we need to get the username of that user
         // so we need to match the id with the username from user state
         for (let j=0; j<users.length; j++) {
             console.log('in second for loop');
             console.log(users[j]._id);
+
             if (props.trip.userIds[i] == users[j]._id) {
                 // now we want to push this user's username to people state array
                 setPeople([
@@ -33,9 +47,12 @@ const PeopleComponent = (props) => {
                     users[j].username
                 ])
                 console.log(people);
-            }
-        }
+            };
+
+        };
+
     };
+    
     // useEffect(getUsers, []);
     return (
         <div>

@@ -1,12 +1,18 @@
+// import tools
 import { useState } from "react";
-import apiUrl from "../../apiConfig";
 import { useNavigate } from "react-router-dom";
+
+// import apiconfig for api url
+import apiUrl from "../../apiConfig";
+
+
 
 const NewTrip = (props) => {
     const navigate = useNavigate();
-    // parse the user 
+    // parse the user from localstorage
     let parsedCurrentUser = JSON.parse(localStorage.getItem('currentUser'));
     console.log(parsedCurrentUser);
+
     // set up state for new trip to exist in
     const [newTrip, setNewTrip] = useState({
         tripName: '',
@@ -15,6 +21,8 @@ const NewTrip = (props) => {
         userIds: '',
         destinations: ''
     });
+
+    // update new trip state when form inputs are changed
     const handleInputChange = (e) => {
         setNewTrip({
             ...newTrip,
@@ -22,6 +30,8 @@ const NewTrip = (props) => {
         })
         console.log(newTrip);
     };
+
+    // send new trip to backend 
     const postNewTrip = async(userId, newTrip) => {
         const apiResponse = await fetch(`${apiUrl}/trips`, {
             method: "POST",
@@ -30,14 +40,19 @@ const NewTrip = (props) => {
                 "Content-Type": "application/json"
             }
         });
+
         const parsedResponse = await apiResponse.json();
+
         if (parsedResponse.status == 200) {
             console.log('yay status 200');
             props.setTrips([parsedResponse.data, ...props.trips]);
             console.log('here is now the array of state trips: ');
             console.log(props.trips);
-        }
-    }
+        };
+
+    };
+
+    // send new trip state to api request and reset state
     const submitNewTrip = (e) => {
         e.preventDefault();
         postNewTrip(parsedCurrentUser._id, newTrip);
@@ -50,7 +65,8 @@ const NewTrip = (props) => {
             destinations: ''
         });
         navigate('/trips');
-    }
+    };
+    
     return (
         <div>
             <h1>Add a new trip</h1>

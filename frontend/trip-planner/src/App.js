@@ -4,15 +4,21 @@ import { useState } from 'react';
 import NavComponent from './NavComponent/NavComponent';
 import Login from './NavComponent/NavComponents/login';
 import SignUp from './NavComponent/NavComponents/signup';
+// import apiconfig
+import apiUrl from './apiConfig';
+
+//import components
 import NewTrip from './NavComponent/NavComponents/new-trip';
 import Contact from './FooterComponent/contact';
 import About from './FooterComponent/about';
-import apiUrl from './apiConfig';
 import FooterComponent from './FooterComponent/FooterComponent';
 import UserAccount from './NavComponent/NavComponents/userAccount';
 import Trips from './NavComponent/NavComponents/trips';
 
+
+
 function App() {
+  // set up state for both models
   const [users, setUsers] = useState([]);
   const [trips, setTrips] = useState([]);
   const getUsers = async () => {

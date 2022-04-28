@@ -1,6 +1,11 @@
+// import tools
 import { useState } from "react";
-import apiUrl from "../../../../apiConfig";
 import { useNavigate } from "react-router-dom";
+
+// import apiconfig for api url
+import apiUrl from "../../../../apiConfig";
+
+
 
 const EventComponent = (props) => {
     const navigate = useNavigate();
@@ -13,6 +18,8 @@ const EventComponent = (props) => {
         eventTime: '',
         eventPrice: ''
     });
+
+    // change event state everytime form input fields change
     const handleInputChange = (e) => {
         setEditEvent({
             ...editEvent,
@@ -20,7 +27,10 @@ const EventComponent = (props) => {
         });
         console.log(editEvent);
     };
+
+    // send a request to backend to update trip model
     const sendEventEdit = async (event, tripToEdit, formattedCurrentDay, eventToEdit) => {
+
         const apiResponse = await fetch(`${apiUrl}/trips/${tripToEdit}`, {
             method: "PUT",
             body: JSON.stringify({event: event, currentDay: formattedCurrentDay, eventToEdit: eventToEdit}),
@@ -28,14 +38,19 @@ const EventComponent = (props) => {
                 "Content-Type": "application/json"
             }
         });
+
         const parsedResponse = await apiResponse.json();
+
         if (parsedResponse.status == 200 && parsedResponse.data == 'did not match') {
             console.log('did not match')
         } else {
             console.log('yay it worked!');
             navigate('/trips');
-        }
-    }
+        };
+
+    };
+
+    // send event state to api request function and reset state
     const submitEditEvent = (eventToEdit) => {
         // also send to fetch the current day to set daytime of this itinerary item
         sendEventEdit(editEvent, props.trip._id, props.formattedCurrentDay, eventToEdit)
@@ -46,8 +61,11 @@ const EventComponent = (props) => {
             eventPrice: ''
         });
         toggleShowing();
-    }
+    };
+
+    // send deletion info to backend to update trip
     const deleteEvent = async (formattedCurrentDay, eventToDelete, tripToEdit) => {
+
         const apiResponse = await fetch(`${apiUrl}/trips/${tripToEdit}`, {
             method: "PUT",
             body: JSON.stringify({currentDay: formattedCurrentDay, eventToDelete: eventToDelete}),
@@ -55,14 +73,18 @@ const EventComponent = (props) => {
                 "Content-Type": "application/json"
             }
         });
+
         const parsedResponse = await apiResponse.json();
+
         if (parsedResponse.status == 200 && parsedResponse.data == 'did not match') {
             console.log('did not match')
         } else {
             console.log('yay it worked!');
             navigate('/trips');
-        }
-    }
+        };
+
+    };
+    
     return (
         <div>
             <p>{props.event.eventName}</p>

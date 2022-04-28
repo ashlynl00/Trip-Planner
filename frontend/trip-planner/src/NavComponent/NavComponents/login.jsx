@@ -1,13 +1,21 @@
+// import tools
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+// import apiconfig for api url
 import apiUrl from "../../apiConfig";
 
+
+
 const Login = (props) => {
+    // create state for user
     const [currentUser, setCurrentUser] = useState({
         username: '',
         password: ''
     })
     const navigate = useNavigate();
+
+    // change user state everytime input fields change
     const handleInputChange = (e) => {
         setCurrentUser({
             ...currentUser,
@@ -15,6 +23,8 @@ const Login = (props) => {
         })
         console.log(currentUser);
     };
+
+    // send a request to backend to run through db and make sure user exists and info is correct
     const checkAccounts = async (userLogin) => {
         const apiResponse = await fetch(`${apiUrl}/users/login`, {
             method: "POST",
@@ -23,8 +33,11 @@ const Login = (props) => {
                 "Content-Type": "application/json"
             }
         });
+
         const parsedResponse = await apiResponse.json();
+
         if (parsedResponse.status == 200) {
+
             if (parsedResponse.data == 'not a possible user') {
                 console.log('in if not a possible user');
                 alert('Sorry, the username login info you provided is not correct. If you would like to create an account, please click the Create New Account button below.');
@@ -44,20 +57,25 @@ const Login = (props) => {
                 console.log(localStorage.getItem('currentUser'));
                 console.log(currentUser);
                 navigate('/');
-            }
+            };
+
         } else {
             console.log('in else');
             console.log(parsedResponse.data);
         };
+
     };
+
+    // send api request user information 
     const submitUserLogin = (e) => {
         e.preventDefault();
         checkAccounts(currentUser);
         setCurrentUser({
             username: '',
             password: ''
-        })
-    }
+        });
+    };
+    
     return (
         <div>
             <h1>Login</h1>

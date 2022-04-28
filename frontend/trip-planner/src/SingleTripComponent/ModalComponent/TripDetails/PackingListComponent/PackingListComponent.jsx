@@ -1,25 +1,40 @@
+// import tools
 import { useState } from "react";
-import apiUrl from "../../../../apiConfig";
 import { useNavigate } from "react-router-dom";
+
+// import apiconfig for api url
+import apiUrl from "../../../../apiConfig";
+
+// import components
 import EditListItem from "./EditListItem";
+
+
 
 const PackingListComponent = (props) => {
     const navigate = useNavigate();
+    // set up state to store whether or not an element is being displayed or not
     const [showing, setShowing] = useState(false);
     const toggleShowing = () => {
         setShowing(!showing);
     };
+
+    // store listItem in state
     const [listItem, setListItem] = useState({
         itemName: '',
         itemQuantity: ''
     });
+
+    // set list item state based off of changes in input fields
     const handleInputChange = (e) => {
         setListItem({
             ...listItem,
             [e.target.name]: e.target.value
         })
-    }
+    };
+
+    // send api request with list item info
     const sendListItem = async (listItem, tripToEdit, listItemToEdit=null, deleteItem=null) => {
+
         const apiResponse = await fetch(`${apiUrl}/trips/${tripToEdit}`, {
             method: "PUT",
             body: JSON.stringify({listItem: listItem, listItemToEdit: listItemToEdit, deleteItem: deleteItem}),
@@ -27,14 +42,19 @@ const PackingListComponent = (props) => {
                 "Content-Type": "application/json"
             }
         });
+
         const parsedResponse = await apiResponse.json();
+
         if (parsedResponse.status == 200 && parsedResponse.data == 'did not match') {
             console.log('did not match')
         } else {
             console.log('yay it worked!');
             navigate('/trips');
-        }
-    }
+        };
+
+    };
+
+    // handle list item submission
     const submitListItem = (e) => {
         e.preventDefault();
         sendListItem(listItem, props.trip._id);
@@ -44,6 +64,7 @@ const PackingListComponent = (props) => {
         });
         toggleShowing();
     };
+    
     return (
         <>
             <h3>Packing List: </h3>

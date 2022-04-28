@@ -1,6 +1,11 @@
+// import tools
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+// import apiconfig for api url
 import apiUrl from "../../apiConfig";
+
+
 
 const SignUp = (props) => {
     const [isValidState, setIsValidState] = useState ({valid: true, message: ""});
@@ -10,6 +15,8 @@ const SignUp = (props) => {
         username: '',
         password: ''
     })
+
+    // handle input change by update user state
     const handleInputChange = (e) => {
         setNewUser({
             ...newUser,
@@ -17,9 +24,12 @@ const SignUp = (props) => {
         })
         console.log(newUser);
     };
+
+    // send user state to backend db to create user
     const createNewUser = async (newUser) => {
         console.log(newUser);
         console.log('let us create this');
+
         // send a request to the backend
         const apiResponse = await fetch(`${apiUrl}/users`, {
             method: "POST",
@@ -28,10 +38,13 @@ const SignUp = (props) => {
                 "Content-Type": "application/json"
             }
         });
+
         // parse the response
         const parsedResponse = await apiResponse.json();
+
         // if response is success: 
         if (parsedResponse.status == 200) {
+
             if (parsedResponse.data == 'this username already exists') {
                 console.log('username already exists, in if');
                 alert('This username already exists! Please create a unique username.');
@@ -42,11 +55,13 @@ const SignUp = (props) => {
                 props.setUsers([parsedResponse.data, ...props.users]);
                 console.log(props.users);
                 navigate('/login');
-            }
+            };
+
         } else {
             //else:
             // show the error message in the form, don't change it back
             console.log('in catch err');
+
             if (parsedResponse.data == 'duplicate usernames') {
                 console.log('username already exists, in if');
                 alert('This username already exists! Please create a unique username.');
@@ -55,12 +70,16 @@ const SignUp = (props) => {
             } else {
                 console.log(parsedResponse.data);
                 setNewUserServerError(parsedResponse.data);
-            }
-        }
-    }
+            };
+        };
+
+    };
+
+    // send api request user info and reset state
     const submitNewUser = async (e) => {
         e.preventDefault();
         let validSubmission = true;
+
         // check if input is valid
         if (newUser.username.length < 3) {
             setIsValidState({
@@ -69,6 +88,7 @@ const SignUp = (props) => {
             });
             validSubmission = false;
         };
+
         if (validSubmission) {
             // call new item function and pass in the newItem state as the parameter
             createNewUser(newUser);
@@ -82,7 +102,8 @@ const SignUp = (props) => {
                 message: ""
             });
         }; 
-    }
+    };
+    
     return (
         <div>
             <h1>Sign Up</h1>

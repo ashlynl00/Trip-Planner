@@ -1,19 +1,31 @@
+// import tools
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+// import apiconfig for api url
 import apiUrl from "../../apiConfig";
+
+
 
 const UserAccount = () => {
     const navigate = useNavigate();
+    // parse local storage user so it can be used
     let parsedUser = JSON.parse(localStorage.getItem('currentUser'));
     console.log(parsedUser);
     console.log(parsedUser.username);
+
+    // set up state to store whether or not an element is being displayed or not
     const [showing, setShowing] = useState(false);
     const toggleShowing = () => {
         setShowing(!showing);
     };
+
+    // set up state to store use we want to edit
     const [editUser, setEditUser] = useState({
         username: ''
     });
+
+    // update edit user state everytime input is updated
     const handleInputChange = (e) => {
         setEditUser({
             ...editUser,
@@ -21,7 +33,10 @@ const UserAccount = () => {
         })
         console.log(editUser);
     };
+
+    // send request to backend to update user
     const getEditUser = async (userIdToEdit, userUsername) => {
+
         const apiResponse = await fetch(`${apiUrl}/users/${userIdToEdit}`, {
             method: "PUT",
             body: JSON.stringify(userUsername),
@@ -29,7 +44,9 @@ const UserAccount = () => {
                 "Content-Type": "application/json"
             }
         });
+
         const parsedResponse = await apiResponse.json();
+
         if (parsedResponse.status == 200 && parsedResponse.data != 'this username is already taken') {
             console.log('yay status 200');
             localStorage.removeItem('currentUser');
@@ -40,10 +57,14 @@ const UserAccount = () => {
         } else {
             console.log('ohr nor');
             alert('This username is already taken!')
-        }
-    }
+        };
+
+    };
+
+    // send user state to api request function and reset state
     const submitEditUsername = (e) => {
         e.preventDefault();
+
         if (editUser.username.length > 2) {
             // pass it as a parameter to the fetch function
             getEditUser(parsedUser._id,editUser);
@@ -56,13 +77,19 @@ const UserAccount = () => {
         } else {
             alert('Your username needs to be longer.');
             navigate('/user-account');
-        }
-    }
+        };
+
+    };
+
+    // send user account to delete to db
     const deleteAccount = async (idToDelete) => {
+
         const apiResponse = await fetch(`${apiUrl}/users/${idToDelete}`, {
             method: "DELETE"
         });
+
         const parsedResponse = await apiResponse.json();
+
         if (parsedResponse.status == 200) {
             console.log('yay delete was successful');
             // remove current user
@@ -71,8 +98,10 @@ const UserAccount = () => {
             navigate('/');
         } else {
             console.log('ohr nor twas not successful');
-        }
-    }
+        };
+
+    };
+    
     return (
         <div>
             <h1>Hello {parsedUser.username}</h1>

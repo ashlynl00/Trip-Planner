@@ -1,8 +1,15 @@
+// import tools
 import {Link, useNavigate} from 'react-router-dom';
+
+// import apiconfig for api url
 import apiUrl from '../apiConfig';
+
+
 
 const NavComponent = (props) => {
     const navigate = useNavigate();
+
+    // logout function to remove current user from localstorage
     const logout = () => {
         localStorage.removeItem('currentUser');
         console.log(localStorage.getItem('currentUser'));
@@ -20,6 +27,7 @@ const NavComponent = (props) => {
     //     }
     //     navigate('/trips')
     // }
+    
     return (
         <nav>
             <h2>Logo here</h2>

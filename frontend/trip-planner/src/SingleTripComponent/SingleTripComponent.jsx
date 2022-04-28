@@ -1,19 +1,26 @@
+// import tools 
 import { useState } from "react";
-import ModalComponent from "./ModalComponent/ModalComponent";
 import moment from 'moment';
 
+// import components
+import ModalComponent from "./ModalComponent/ModalComponent";
+
+
 const SingleTripComponent = (props) => {
+    // create state to define if an element shows or not
     const [showing, setShowing] = useState(false);
     const toggleShowing = () => {
         setShowing(!showing);
     };
-    // format dates
+
+    // format dates from trip
     console.log(props.trip.dateStart)
     let tripStart = moment.utc(props.trip.dateStart).format('MM/DD/YYYY');
     let tripEnd = moment.utc(props.trip.dateEnd).format('MM/DD/YYYY');
     let tripStartFormatted = moment.utc(props.trip.dateStart).format("MMM Do YY");
     let tripEndFormatted = moment.utc(props.trip.dateEnd).format("MMM Do YY");
     console.log(tripStart);
+    
     return (
         <div className="single-trip-item">
             {showing ?
