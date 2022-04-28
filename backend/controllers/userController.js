@@ -10,6 +10,7 @@ router.get('/', async (req,res)=>{
     try{
         // the data we will send will come from the Schema database
         const users = await User.find();
+        console.log(users);
         // if we are able to access this route, send a good status and show the data
         res.send ({
             status: 200,
