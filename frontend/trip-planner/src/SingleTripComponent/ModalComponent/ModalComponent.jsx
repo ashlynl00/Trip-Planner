@@ -9,10 +9,12 @@ import DayComponent from "./TripDetails/DayComponent";
 import PackingListComponent from "./TripDetails/PackingListComponent/PackingListComponent";
 import PeopleComponent from "./TripDetails/PeopleComponent";
 import Transportation from "./TripDetails/Transportation";
+import { useNavigate } from "react-router-dom";
 
 
 
 const ModalComponent = (props) => {
+    const navigate = useNavigate();
     // set up showing state for when to show form 
     const [showing, setShowing] = useState(false);
     const toggleShowing = () => {
@@ -61,6 +63,7 @@ const ModalComponent = (props) => {
         sendImg(props.trip._id, imgLink);
         setImage('');
         toggleShowing();
+        navigate('/trips');
     };
 
 
@@ -76,38 +79,41 @@ const ModalComponent = (props) => {
     console.log(date2);
     let totalDays = getDifferenceInDays(date1, date2);
     console.log(totalDays)
-    
+
     return (
         <div className="trip-modal">
             <h2>{props.trip.tripName} to {props.trip.destinations}</h2>
             <h3>Dates: {props.tripStartFormatted} - {props.tripEndFormatted}</h3>
             { props.trip.img == null ?
-                <>
-                showing ?
-                    <form onSubmit={handleImgSubmit}>
-                        <input onChange ={ (e)=>setImage(e.target.files[0])} type="file" name="img" accept="image/png, image/jpeg" placeholder='upload image'></input>
-                        <button type="submit">Submit</button>
-                    </form>
-                    <button onClick={toggleShowing}>Cancel</button>
-                    :
-                    <button onClick={toggleShowing}>Upload Image</button>
-                </>
+                    <>
+                        {showing ?
+                            <>
+                                <form onSubmit={handleImgSubmit}>
+                                    <input onChange ={ (e)=>setImage(e.target.files[0])} type="file" name="img" accept="image/png, image/jpeg" placeholder='upload image'></input>
+                                    <button type="submit">Submit</button>
+                                </form>
+                                <button onClick={toggleShowing}>Cancel</button>
+                            </>
+                            :
+                            <button onClick={toggleShowing}>Upload Image</button>
+                        }
+                    </>
                 :
-                <>
-                    <img src={props.trip.img}></img>
-                    {showing ?
-                        <>
-                            <form onSubmit={handleImgSubmit}>
-                                <input onChange ={ (e)=>setImage(e.target.files[0])} type="file" name="img" accept="image/png, image/jpeg" placeholder='upload image'></input>
-                                <button type="submit">Submit</button>
-                            </form>
-                            <button onClick={toggleShowing}>Cancel</button>
-                        </>
-                        :
-                        <button onClick={toggleShowing}>Edit Image</button>
-                    }
-                </>
-            }
+                    <>
+                        <img src={props.trip.img}></img>
+                        {showing ?
+                            <>
+                                <form onSubmit={handleImgSubmit}>
+                                    <input onChange ={ (e)=>setImage(e.target.files[0])} type="file" name="img" accept="image/png, image/jpeg" placeholder='upload image'></input>
+                                    <button type="submit">Submit</button>
+                                </form>
+                                <button onClick={toggleShowing}>Cancel</button>
+                            </>
+                            :
+                            <button onClick={toggleShowing}>Edit Image</button>
+                        }
+                    </>
+                }
             <h4>Itinerary: </h4>
             <div className="day-container">
                 {[...Array(totalDays)].map((elementInArray, index)=>{

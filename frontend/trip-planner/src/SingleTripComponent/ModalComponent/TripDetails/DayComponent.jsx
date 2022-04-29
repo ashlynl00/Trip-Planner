@@ -57,11 +57,11 @@ const DayComponent = (props) => {
     };
 
     // send api request with description info to trip controller
-    const sendDescription = async (description, tripToEdit, formattedCurrentDay) => {
+    const sendDescription = async (description, tripToEdit, formattedCurrentDay, day) => {
 
         const apiResponse = await fetch(`${apiUrl}/trips/${tripToEdit}`, {
             method: "PUT",
-            body: JSON.stringify({description: description, currentDay: formattedCurrentDay}),
+            body: JSON.stringify({description: description, currentDay: formattedCurrentDay, day: day}),
             headers: {
                 "Content-Type": "application/json"
             }
@@ -73,6 +73,7 @@ const DayComponent = (props) => {
             console.log('did not match')
         } else {
             console.log('yay it worked!');
+            //window.location.reload();
             navigate('/trips');
         };
 
@@ -87,8 +88,10 @@ const DayComponent = (props) => {
     // handle submission for adding a description form and send description state to api request
     const submitAddDescription = (e) => {
         e.preventDefault();
+        let index = props.index
+        let day =index + 1
         // also send to fetch the current day to set daytime of this itinerary item
-        sendDescription(addDescription, props.trip._id, formattedCurrentDay)
+        sendDescription(addDescription, props.trip._id, formattedCurrentDay, day)
         toggleShowing();
 
         // reset state
@@ -151,17 +154,6 @@ const DayComponent = (props) => {
                         :
                         <button onClick={toggleShowing}>Add Description</button>
                     }
-                    {/* <p>Events: None added</p>
-                    {showingEventForm ?
-                        <form onSubmit={submitAddEvent}>
-                            Event Name: <input type='text' name='eventName' value={addEvent.eventName} onChange={handleInputChangeEvent}></input>
-                            Event Time: <input type='time' name='eventTime' value={addEvent.eventTime} onChange={handleInputChangeEvent}></input>
-                            Event Price: <input type='number' name='eventPrice' value={addEvent.eventPrice} onChange={handleInputChangeEvent}></input>
-                            <button type='submit'>Submit</button>
-                        </form>
-                        :
-                        <button onClick={toggleShowingEventForm}>Add Event</button>
-                    } */}
                 </>
                 : 
                 <>
@@ -183,7 +175,18 @@ const DayComponent = (props) => {
                         :
                         <>
                             <p>Description: {props.trip.itinerary[props.index].description}</p>
-                            <button>Edit Description</button>
+                            {/* <button>Edit Description</button> */}
+                            {showing ?
+                                <>
+                                    <form onSubmit={submitAddDescription}>
+                                        Description: <textarea type='text' name='description' value={addDescription.description} onChange={handleInputChangeDescription}></textarea>
+                                        <button type='submit'>Submit</button>
+                                    </form>
+                                    <button onClick={toggleShowing}>Cancel</button>
+                                </>
+                                :
+                                <button onClick={toggleShowing}>Edit Description</button>
+                            }
                         </>
                     }
                     <ul>Events:

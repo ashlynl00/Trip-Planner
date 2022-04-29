@@ -33,6 +33,16 @@ router.post('/', async (req, res)=>{
         console.log(newTrip);
         // now add the user id to this trip user Id array
         newTrip.userIds.push(req.body.userId);
+        // make for loop to loop through total days and create an item in itinerary
+        for (let i=0; i<req.body.totalDays; i++) {
+            let itineraryItem = {
+                dateTime: null,
+                description: '',
+                day: i+1
+            };
+            newTrip.itinerary.push(itineraryItem);
+        };
+
         newTrip.save();
         console.log(newTrip);
         // send back JSON response
@@ -127,13 +137,23 @@ router.put('/:id', async (req, res)=>{
         }else if (req.body.description) {
             console.log(req.body.description.description);
             // create an object to push to itinerary array
-            let itineraryItem = {
-                dateTime: req.body.currentDay,
-                description: req.body.description.description
-            };
-            console.log(itineraryItem);
+            // let itineraryItem = {
+            //     dateTime: req.body.currentDay,
+            //     description: req.body.description.description,
+            //     day: req.body.day
+            // };
+            // console.log(itineraryItem);
             // push this new object to trip
-            trip.itinerary.push(itineraryItem);
+            //trip.itinerary.push(itineraryItem);
+            // loop through itinerary items to find matching day
+            for (let i=0; i<trip.itinerary.length; i++) {
+                if (trip.itinerary[i].day == req.body.day) {
+                    console.log('ayy req.body.day is equal to this day!');
+                    console.log(req.body.day);
+                    console.log(i);
+                    trip.itinerary[i].description = req.body.description.description
+                };
+            };
             trip.save();
             console.log('this is now the current trip');
             console.log(trip);

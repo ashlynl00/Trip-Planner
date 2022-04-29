@@ -55,9 +55,15 @@ const Home = () => {
     <div id='home'>
       <div id="home-content">
         <h1>Plan your next trip</h1>
-        <Link to='/sign-up'>
-          <button>Sign Up</button>
-        </Link>
+        {localStorage.getItem('currentUser')==null ?
+          <Link to='/sign-up'>
+            <button>Sign Up</button>
+          </Link>
+          :
+          <Link to='/trips'>
+            <button>Your Trips</button>
+          </Link>
+        }
       </div>
     </div>
   )

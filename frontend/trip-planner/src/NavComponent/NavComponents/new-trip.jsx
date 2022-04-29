@@ -32,10 +32,10 @@ const NewTrip = (props) => {
     };
 
     // send new trip to backend 
-    const postNewTrip = async(userId, newTrip) => {
+    const postNewTrip = async(userId, newTrip, totalDays) => {
         const apiResponse = await fetch(`${apiUrl}/trips`, {
             method: "POST",
-            body: JSON.stringify({trip: newTrip, userId:userId}),
+            body: JSON.stringify({trip: newTrip, userId:userId, totalDays: totalDays}),
             headers: {
                 "Content-Type": "application/json"
             }
@@ -52,10 +52,23 @@ const NewTrip = (props) => {
 
     };
 
+    const getDifferenceInDays = (date1, date2) => {
+        const diffInMs = Math.abs(date2 - date1);
+        return diffInMs / (1000 * 60 * 60 * 24);
+    };
+
+    let date1 = new Date(newTrip.dateStart);
+    let date2 = new Date(newTrip.dateEnd);
+    console.log('this is date1')
+    console.log(date1);
+    console.log(date2);
+    let totalDays = getDifferenceInDays(date1, date2);
+    console.log(totalDays)
+
     // send new trip state to api request and reset state
     const submitNewTrip = (e) => {
         e.preventDefault();
-        postNewTrip(parsedCurrentUser._id, newTrip);
+        postNewTrip(parsedCurrentUser._id, newTrip, totalDays);
         // reset form fields
         setNewTrip({
             tripName: '',
@@ -65,8 +78,9 @@ const NewTrip = (props) => {
             destinations: ''
         });
         navigate('/trips');
+        window.location.reload();
     };
-    
+
     return (
         <div>
             <h1>Add a new trip</h1>

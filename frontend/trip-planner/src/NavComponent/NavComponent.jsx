@@ -27,7 +27,7 @@ const NavComponent = (props) => {
     //     }
     //     navigate('/trips')
     // }
-    
+
     return (
         <nav>
             <h2>Logo here</h2>
@@ -49,7 +49,9 @@ const NavComponent = (props) => {
                     </>
                     :
                     <>
-                    <li>Account</li>
+                    <Link to='user-account'>
+                        <li>Account</li>
+                    </Link>
                     <li onClick={logout} id='logout-nav'>Logout</li>
                     {/* <Link to='/trips'>
                         <li onClick={(e)=>{

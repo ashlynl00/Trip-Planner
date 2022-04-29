@@ -32,6 +32,7 @@ const tripSchema = new Schema ({
     itinerary: [
         {
             dateTime: {type: Date},
+            day: {type: Number},
             description: {type: String},
             events: [
                 {
