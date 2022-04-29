@@ -10,28 +10,49 @@ MERN
 - Be deployed to heroku
 
 ### Trip Model
-tripName: String,
-dates: Date,
-people: [String],
+tripName: {type: String, required: true},
+dateStart: {type: Date, required: true},
+dateEnd: {type: Date, required:true},
+userIds: [{type: String}],
+destinations: [{type:String, required: true}],
 mainTransportation: {
-  type: String,
-  when: Date,
-  cost: Integer,
-  booked: Boolean
+    mode: {type: String},
+    destination: {type: String},
+    when: {
+        departure: {
+           departureDate: {type: Date},
+           departureTime: {type: String}
+        },
+        returning: {
+            returningDate: {type: Date},
+            returningTime: {type: String}
+        }
+    },
+    cost: {type: Number},
+    booked: {type: Boolean}
 },
-packingList: [String],
-itinerary: [
-  {
-  day: Date,
-  events: [
+packingList: [
     {
-    eventname: String,
-    eventTime: Date,
-    eventPrice: Integer
+        itemName: {type: String},
+        itemQuantity: {type: Number}
     }
-  ]
+],
+itinerary: [
+    {
+        dateTime: {type: Date},
+        day: {type: Number},
+        description: {type: String},
+        events: [
+            {
+                eventName: {type: String},
+                eventTime: {type: String},
+                eventPrice: {type: Number}
+            }
+        ]
+    },
+],
+img: {type: String, require: false}
   
   ## User Model
   username: String,
-  password: String,
-  trips: []
+  password: String
