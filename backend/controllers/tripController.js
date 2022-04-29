@@ -174,10 +174,12 @@ router.put('/:id', async (req, res)=>{
 
             for (let i=0; i<trip.itinerary.length; i++) {
                 console.log('beginning for loop');
-                console.log(trip.itinerary[i].dateTime.getTime());
-                console.log(currentDay.getTime());
+                console.log(trip.itinerary[i].day);
+                //console.log(trip.itinerary[i].dateTime.getTime());
+                console.log(req.body.day);
+                //console.log(currentDay.getTime());
 
-                if (trip.itinerary[i].dateTime.getTime() == currentDay.getTime()) {
+                if (trip.itinerary[i].day == req.body.day) {
                     console.log('inside if');
                     // now that we have matched the day with backend day, we can push the event
                     // first we need to create an event object that we can push

@@ -73,7 +73,7 @@ const DayComponent = (props) => {
             console.log('did not match')
         } else {
             console.log('yay it worked!');
-            //window.location.reload();
+            window.location.reload();
             navigate('/trips');
         };
 
@@ -104,10 +104,10 @@ const DayComponent = (props) => {
     console.log(props.trip.itinerary[props.index])
 
     // send api request to change events in db
-    const sendEvent = async (event, tripToEdit, formattedCurrentDay) => {
+    const sendEvent = async (event, tripToEdit, formattedCurrentDay, day) => {
         const apiResponse = await fetch(`${apiUrl}/trips/${tripToEdit}`, {
             method: "PUT",
-            body: JSON.stringify({event: event, currentDay: formattedCurrentDay}),
+            body: JSON.stringify({event: event, currentDay: formattedCurrentDay, day: day}),
             headers: {
                 "Content-Type": "application/json"
             }
@@ -127,8 +127,10 @@ const DayComponent = (props) => {
     // send event state to api request
     const submitAddEvent = (e) => {
         e.preventDefault();
+        let index = props.index
+        let day =index + 1
         // also send to fetch the current day to set daytime of this itinerary item
-        sendEvent(addEvent, props.trip._id, formattedCurrentDay)
+        sendEvent(addEvent, props.trip._id, formattedCurrentDay, day)
         toggleShowingEventForm();
         setAddEvent({
             eventName: '',
@@ -136,6 +138,7 @@ const DayComponent = (props) => {
             eventPrice: ''
         });
         toggleShowingEventForm();
+        window.location.reload();
     };
 
     return (
