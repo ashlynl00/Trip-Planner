@@ -35,9 +35,6 @@ const NavComponent = (props) => {
                 <Link to='/'>
                     <li>Home</li>
                 </Link>
-                <Link to='/new-trip'>
-                    <li>New Trip</li>
-                </Link>
                 {localStorage.getItem('currentUser')==null ?
                     <>
                         <Link to='/login'>
@@ -46,9 +43,15 @@ const NavComponent = (props) => {
                         <Link to='/sign-up'>
                             <li>Sign Up</li>
                         </Link>
+                        <Link to='/sign-up'>
+                            <li>New Trip</li>
+                        </Link>
                     </>
                     :
                     <>
+                    <Link to='/new-trip'>
+                        <li>New Trip</li>
+                    </Link>
                     <Link to='user-account'>
                         <li>Account</li>
                     </Link>
