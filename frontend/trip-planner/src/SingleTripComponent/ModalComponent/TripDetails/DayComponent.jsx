@@ -139,6 +139,7 @@ const DayComponent = (props) => {
         });
         toggleShowingEventForm();
         window.location.reload();
+        props.toggleShowing();
     };
 
     return (
@@ -195,7 +196,7 @@ const DayComponent = (props) => {
                     <ul>Events:
                         {props.trip.itinerary[props.index].events.map((event)=>{
                             return (
-                                <li><EventComponent event={event} formattedCurrentDay={formattedCurrentDay} trip={props.trip}></EventComponent></li>
+                                <li><EventComponent event={event} formattedCurrentDay={formattedCurrentDay} trip={props.trip} index={props.index} toggleShowing={props.toggleShowing}></EventComponent></li>
                             )
                         })}
                     </ul>

@@ -29,11 +29,11 @@ const EventComponent = (props) => {
     };
 
     // send a request to backend to update trip model
-    const sendEventEdit = async (event, tripToEdit, formattedCurrentDay, eventToEdit) => {
+    const sendEventEdit = async (event, tripToEdit, formattedCurrentDay, eventToEdit, day) => {
 
         const apiResponse = await fetch(`${apiUrl}/trips/${tripToEdit}`, {
             method: "PUT",
-            body: JSON.stringify({event: event, currentDay: formattedCurrentDay, eventToEdit: eventToEdit}),
+            body: JSON.stringify({event: event, currentDay: formattedCurrentDay, eventToEdit: eventToEdit, day: day}),
             headers: {
                 "Content-Type": "application/json"
             }
@@ -52,8 +52,10 @@ const EventComponent = (props) => {
 
     // send event state to api request function and reset state
     const submitEditEvent = (eventToEdit) => {
+        let index = props.index
+        let day =index + 1
         // also send to fetch the current day to set daytime of this itinerary item
-        sendEventEdit(editEvent, props.trip._id, props.formattedCurrentDay, eventToEdit)
+        sendEventEdit(editEvent, props.trip._id, props.formattedCurrentDay, eventToEdit, day)
         toggleShowing();
         setEditEvent({
             eventName: '',
@@ -61,14 +63,16 @@ const EventComponent = (props) => {
             eventPrice: ''
         });
         toggleShowing();
+        window.location.reload();
+        props.toggleShowing();
     };
 
     // send deletion info to backend to update trip
-    const deleteEvent = async (formattedCurrentDay, eventToDelete, tripToEdit) => {
+    const deleteEvent = async (formattedCurrentDay, eventToDelete, tripToEdit, day) => {
 
         const apiResponse = await fetch(`${apiUrl}/trips/${tripToEdit}`, {
             method: "PUT",
-            body: JSON.stringify({currentDay: formattedCurrentDay, eventToDelete: eventToDelete}),
+            body: JSON.stringify({currentDay: formattedCurrentDay, eventToDelete: eventToDelete, day: day}),
             headers: {
                 "Content-Type": "application/json"
             }
@@ -81,10 +85,12 @@ const EventComponent = (props) => {
         } else {
             console.log('yay it worked!');
             navigate('/trips');
+            window.location.reload();
+            props.toggleShowing();
         };
 
     };
-    
+
     return (
         <div>
             <p>{props.event.eventName}</p>
@@ -105,7 +111,11 @@ const EventComponent = (props) => {
                 :
                 <button onClick={toggleShowing}>Edit Event</button>
             }
-            <button onClick={()=>{deleteEvent(props.formattedCurrentDay, props.event._id, props.trip._id)}}>Delete Event</button>
+            <button onClick={()=>{
+                let index = props.index
+                let day =index + 1
+                deleteEvent(props.formattedCurrentDay, props.event._id, props.trip._id, day)
+                }}>Delete Event</button>
         </div>
     )
 }

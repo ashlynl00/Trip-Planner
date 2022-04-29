@@ -63,8 +63,9 @@ const PackingListComponent = (props) => {
             itemQuantity: ''
         });
         toggleShowing();
+        window.location.reload();
     };
-    
+
     return (
         <>
             <h3>Packing List: </h3>

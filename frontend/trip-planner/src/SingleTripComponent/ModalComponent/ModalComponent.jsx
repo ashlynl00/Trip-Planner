@@ -120,14 +120,14 @@ const ModalComponent = (props) => {
                     return (
                         <div className="day-component">
                             <p className="day-component">Day {index+1}: </p>
-                            <DayComponent index={index} trip={props.trip} tripStart={props.tripStart} ></DayComponent>
+                            <DayComponent index={index} trip={props.trip} tripStart={props.tripStart} toggleShowing={props.toggleShowing}></DayComponent>
                         </div>
                     )   
                 })}
             </div>
-            <Transportation trip={props.trip}></Transportation>
-            <PackingListComponent trip={props.trip}></PackingListComponent>
-            <PeopleComponent trip={props.trip} users={props.users}></PeopleComponent>
+            <Transportation trip={props.trip} toggleShowing={props.toggleShowing}></Transportation>
+            <PackingListComponent trip={props.trip} toggleShowing={props.toggleShowing}></PackingListComponent>
+            <PeopleComponent trip={props.trip} users={props.users} toggleShowing={props.toggleShowing}></PeopleComponent>
             <br></br><br></br>
             <button onClick={props.toggleShowing}>Back</button>
         </div>

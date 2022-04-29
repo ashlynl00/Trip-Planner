@@ -10,8 +10,8 @@ const PeopleComponent = (props) => {
     // set up state for users to be stored
     const [users, setUsers] = useState([]);
     const [people, setPeople] = useState([]);
-    const [usernames, setUsernames] = useState([]);
     const [showing, setShowing] = useState(false);
+    let usersList;
     
     const toggleShowing = () => {
         setShowing(!showing);
@@ -30,7 +30,9 @@ const PeopleComponent = (props) => {
             console.log(parsedUsers.status);
             console.log(parsedUsers.data);
             setUsers(parsedUsers.data);
+            usersList = parsedUsers.data;
             console.log(users);
+            console.log(usersList);
             // setUsers(
             //     ...users,
             //     parsedUsers.data
@@ -54,19 +56,19 @@ const PeopleComponent = (props) => {
         for (let i=0; i<props.trip.userIds.length; i++) {
             console.log('in first for loop');
             console.log(props.trip.userIds[i]);
-            console.log(users);
+            //console.log(users);
 
             // for each userId we need to get the username of that user
             // so we need to match the id with the username from user state
-            for (let j=0; j<users.length; j++) {
+            for (let j=0; j<usersList.length; j++) {
                 console.log('in second for loop');
-                console.log(users[j]._id);
+                console.log(usersList[j]._id);
 
-                if (props.trip.userIds[i] == users[j]._id) {
+                if (props.trip.userIds[i] == usersList[j]._id) {
                     console.log('inside if statement');
-                    console.log(users[j].username);
+                    console.log(usersList[j].username);
                     // now we want to push this user's username to people state array
-                    peopleArray.push(users[j].username);
+                    peopleArray.push(usersList[j].username);
                     // setPeople([
                     //     ...people,
                     //     users[j].username
@@ -78,7 +80,7 @@ const PeopleComponent = (props) => {
 
         };
         // set people to be equal to new array
-        setPeople([peopleArray]);
+        setPeople(peopleArray);
         console.log(people);
     }
 

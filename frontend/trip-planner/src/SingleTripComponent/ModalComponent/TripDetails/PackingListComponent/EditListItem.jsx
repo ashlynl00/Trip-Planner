@@ -33,6 +33,7 @@ const EditListItem = (props) => {
             itemQuantity: ''
         });
         toggleShowEditForm();
+        window.location.reload();
     };
 
     // send delete argument to api request to fulfill
@@ -41,8 +42,9 @@ const EditListItem = (props) => {
         let listItemArg = null;
         let deleteItem = true;
         props.sendListItem(listItemArg, props.trip._id, props.listItem._id, deleteItem);
+        window.location.reload();
     };
-    
+
     return (
         <>
             {showEditForm ?

@@ -15,7 +15,7 @@ const Transportation = (props) => {
         returningTime: '',
         destination: '',
         cost: '',
-        booked: ''
+        booked: false
     });
 
     // create state to store if an element is being shown or not
@@ -87,11 +87,12 @@ const Transportation = (props) => {
             returningTime: '',
             destination: '',
             cost: '',
-            booked: ''
+            booked: false
         });
         toggleShowing();
+        window.location.reload();
     };
-    
+
     return (
         <>
             <h3>Transportation: </h3>
@@ -115,8 +116,8 @@ const Transportation = (props) => {
                         Destination: <input name="destination" type='text' onChange={handleInputChange} value={transportationInfo.destination}></input>
                         Cost: <input name="cost" type='number' onChange={handleInputChange} value={transportationInfo.cost}></input>
                         Booked?: <select name="booked" onChange={handleInputChange} value={transportationInfo.booked}>
-                            <option value='true'>True</option>
                             <option value='false'>False</option>
+                            <option value='true'>True</option>
                         </select>
                         <button type='submit'>Submit</button>
                         <button onClick={toggleShowing}>Cancel</button>

@@ -207,14 +207,16 @@ router.put('/:id', async (req, res)=>{
             console.log(req.body.event);
             let currentDay = new Date(req.body.currentDay);
             console.log(currentDay);
+            
 
             for (let i=0; i<trip.itinerary.length; i++) {
                 console.log('in for loop');
-                console.log(trip.itinerary[i].dateTime.getTime());
-                console.log(currentDay.getTime());
-
+                //console.log(trip.itinerary[i].dateTime.getTime());
+                //console.log(currentDay.getTime());
+                console.log(req.body.day)
+                console.log(trip.itinerary[i].day);
                 // first we want to check if it equals the right day
-                if (trip.itinerary[i].dateTime.getTime() == currentDay.getTime()) {
+                if (trip.itinerary[i].day == req.body.day) {
                     console.log('in first if');
 
                     // now check through each event of this itinerary item with the event id from front end
@@ -244,16 +246,16 @@ router.put('/:id', async (req, res)=>{
 
         } else if (req.body.eventToDelete) {
             console.log(req.body.eventToDelete);
-            let currentDay = new Date(req.body.currentDay);
-            console.log(currentDay);
+            //let currentDay = new Date(req.body.currentDay);
+            //console.log(currentDay);
 
             for (let i=0; i<trip.itinerary.length; i++) {
                 console.log('in for loop');
-                console.log(trip.itinerary[i].dateTime.getTime());
-                console.log(currentDay.getTime());
+                console.log(req.body.day);
+                console.log(trip.itinerary[i].day)
 
                 // first we want to check if it equals the right day
-                if (trip.itinerary[i].dateTime.getTime() == currentDay.getTime()) {
+                if (trip.itinerary[i].day == req.body.day) {
                     console.log('in first if, found right itinerary');
 
                     // now check through each event of this itinerary item with the event id from front end
