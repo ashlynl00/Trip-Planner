@@ -1,6 +1,12 @@
 # Trip-Planner
 Plan all your trips with Trip Planner! Be able to create a packing list, to do list in each city, and invite people that are also taking the trip with you! No more worries, every detail regarding your trip will be handled with Trip Planner!
 
+## Access the Deployed Site
+Front-End:
+https://triplann.herokuapp.com/
+Back-End:
+https://triplann-backend.herokuapp.com/trips
+
 ## Tech Stack
 MERN
 
