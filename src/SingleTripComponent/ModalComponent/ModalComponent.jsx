@@ -64,6 +64,7 @@ const ModalComponent = (props) => {
         setImage('');
         toggleShowing();
         navigate('/trips');
+        window.location.reload();
     };
 
 
