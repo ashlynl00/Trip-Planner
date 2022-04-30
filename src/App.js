@@ -54,14 +54,16 @@ const Home = () => {
   return (
     <div id='home'>
       <div id="home-content">
-        <h1>Plan your next trip</h1>
+        <p>WELCOME TO</p>
+        <h1>Trip Planner</h1>
+        <p id="home-description">Plan all your trips with Trip Planner! Be able to create a packing list, to do list in each city, and invite people that are also taking the trip with you! No more worries, every detail regarding your trip will be handled with Trip Planner!</p>
         {localStorage.getItem('currentUser')==null ?
           <Link to='/sign-up'>
-            <button>Sign Up</button>
+            <button id="home-btn-trips">Sign Up</button>
           </Link>
           :
           <Link to='/trips'>
-            <button>Your Trips</button>
+            <button id="home-btn-trips">Your Trips</button>
           </Link>
         }
       </div>

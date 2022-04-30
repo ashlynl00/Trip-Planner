@@ -82,7 +82,7 @@ nav li::after {
   left: 0;
   width: 100%;
   height: 0.1em;
-  background-color: hotpink;
+  background-color: #659DBD;
   opacity: 0;
   transition: opacity 300ms, transform 300ms;
 }
@@ -113,23 +113,51 @@ nav a:focus::after{
 
 #home {
   position: absolute;
-  bottom: 0;
-  height: 90%;
+  top: 55px;
+  height: 100%;
   width: 100%;
-  background-image: url('https://i.imgur.com/VPcZoBh.jpg');
-  background-size: cover;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://i.imgur.com/gg3jb03.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: hidden;
 }
 
 #home-content {
-  background-color: rgba(255, 255, 255, 0.849);
-  width: 400px;
+  width: 500px;
   height: 200px;
   position: absolute;
   margin-top: -100px;
-  margin-left: -200px;
-  top: 50%;
+  margin-left: -250px;
+  top: 40%;
   left: 50%;
   border-radius: 10px;
+  color: white;
+}
+
+#home-btn-trips {
+  width: 140px;
+  height: 50px;
+  background-color: white;
+  border-radius: 20px;
+  border: none;
+  font-size: 16px;
+  color: #659DBD;
+}
+
+#home-btn-trips:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+#home-content h1 {
+  letter-spacing: 8px;
+  font-size: 56px;
+  margin: 25px;
+}
+
+#home-description {
+  margin-bottom: 25px;
 }
 
 
@@ -183,17 +211,51 @@ nav a:focus::after{
 /* footer component */
 #footer {
   position: absolute;
-  bottom: -15px;
+  bottom: -70px;
+  height: 65px;
   width: 100%;
   z-index: 5;
   background-color: white;
   list-style-type: none;
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 0;
 }
 
-#footer a {
+#footer h5 {
+  margin-left: 20px;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
+#footer ul a {
   text-decoration: none;
   color: black;
+  font-size: 14px;
 }
+
+#footer ul {
+  margin-left: 20px;
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 0;
+}
+
+#copyrights {
+  margin-right: 20px;
+  font-size: 12px;
+}
+
+#copyrights img {
+  height: 10px;
+  width: 10px;
+}
+
+
 
