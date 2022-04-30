@@ -4,6 +4,9 @@ import {Link, useNavigate} from 'react-router-dom';
 // import apiconfig for api url
 import apiUrl from '../apiConfig';
 
+// import img
+import logo from '../NavComponent/tp-logo.png';
+
 
 
 const NavComponent = (props) => {
@@ -30,7 +33,7 @@ const NavComponent = (props) => {
 
     return (
         <nav>
-            <h2>Logo here</h2>
+            <img src={logo}></img>
             <ul>
                 <Link to='/'>
                     <li>Home</li>
@@ -55,7 +58,7 @@ const NavComponent = (props) => {
                     <Link to='user-account'>
                         <li>Account</li>
                     </Link>
-                    <li onClick={logout} id='logout-nav'>Logout</li>
+                    <a><li onClick={logout} id='logout-nav'>Logout</li></a>
                     {/* <Link to='/trips'>
                         <li onClick={(e)=>{
                             e.preventDefault();

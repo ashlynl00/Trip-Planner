@@ -45,20 +45,63 @@ nav {
   justify-content: space-between;
   width: 100%;
   background-color: white;
+  box-sizing: border-box;
+  margin-right: 20px;
+}
+
+nav img {
+  margin-left: 20px;
+}
+
+nav img:hover {
+  transform: scale(1.15);
+  cursor: pointer;
 }
 
 nav ul {
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   list-style-type: none;
   padding-left: 0;
-  margin-left: 150px;
 }
 
 nav a {
   text-decoration: none;
   color: black;
+  display: block;
+	position: relative;
+	padding: 0.2em 0;
+  margin-right: 40px;
+}
+
+nav li::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0.1em;
+  background-color: hotpink;
+  opacity: 0;
+  transition: opacity 300ms, transform 300ms;
+}
+
+nav li:hover::after,
+nav li:focus::after {
+  opacity: 1;
+  transform: translate3d(0, 0.2em, 0);
+}
+
+nav a::after {
+  opacity: 1;
+  transform: scale(0);
+  transform-origin: center;
+}
+
+nav a:hover::after,
+nav a:focus::after{
+  transform: scale(1);
 }
 
 #logout-nav {
