@@ -161,6 +161,62 @@ nav a:focus::after{
 }
 
 
+/* style new trip component */
+#new-trip-wrapper {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://i.imgur.com/gg3jb03.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+#new-trip {
+  border-radius: 10px;
+  box-shadow: 5px 10px 8px #659DBD;
+  width: 800px;
+  height: 350px;
+  background-color: white;
+}
+
+#new-trip form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#new-trip .input-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+  margin-bottom: 20px;
+}
+
+#new-trip .input-field input {
+  width: 200px;
+  margin: 0;
+  padding: 2px;
+}
+
+.submit-btn {
+  border-radius: 20px;
+  background-color: #DAAD86;
+  border: none;
+  padding: 15px;
+  color: white;
+}
+
+.submit-btn:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 
 /* User Trips List */
 .user-trips ul {
