@@ -243,6 +243,64 @@ nav a:focus::after{
 }
 
 
+/* signup and login pages */
+#signup-page-wrapper, #login-page-wrapper {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://i.imgur.com/gg3jb03.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+#signup-page, #login-page {
+  border-radius: 10px;
+  box-shadow: 5px 10px 8px #659DBD;
+  width: 800px;
+  height: 250px;
+  background-color: white;
+}
+
+#signup-page form , #login-page form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#signup-page .input-field, #login-page .input-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+  margin-bottom: 20px;
+}
+
+#signup-page .input-field input, #login-page .input-field input {
+  width: 200px;
+  margin: 0;
+  padding: 2px;
+}
+
+.submit-btn {
+  border-radius: 20px;
+  background-color: #daad86;
+  border: none;
+  padding: 15px;
+  color: white;
+}
+
+.submit-btn:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+
+
 
 /* User Trips List */
 .user-trips ul {

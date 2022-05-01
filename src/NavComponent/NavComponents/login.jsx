@@ -77,15 +77,21 @@ const Login = (props) => {
     };
     
     return (
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={submitUserLogin}>
-                <label for='username'>Username: </label>
-                <input type='text' name='username' placeholder="username" value={currentUser.username} onChange={handleInputChange}></input>
-                <label for='password'>Password: </label>
-                <input type='text' name='password' placeholder="password" value={currentUser.password} onChange={handleInputChange}></input>
-                <button type='submit'>Submit</button>
-            </form>
+        <div id="login-page-wrapper">
+            <div id="login-page">
+                <h1>Login</h1>
+                <form onSubmit={submitUserLogin}>
+                    <div className="input-field">
+                        <label for='username'>Username: </label>
+                        <input type='text' name='username' placeholder="username" value={currentUser.username} onChange={handleInputChange}></input>
+                    </div>
+                    <div className="input-field">
+                        <label for='password'>Password: </label>
+                        <input type='password' name='password' placeholder="password" value={currentUser.password} onChange={handleInputChange}></input>
+                    </div>
+                    <button type='submit' className="submit-btn">Submit</button>
+                </form>
+            </div>
         </div>
     )
 }
