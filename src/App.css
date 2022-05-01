@@ -206,7 +206,7 @@ nav a:focus::after{
 
 .submit-btn {
   border-radius: 20px;
-  background-color: #DAAD86;
+  background-color: #daad86;
   border: none;
   padding: 15px;
   color: white;
@@ -216,6 +216,32 @@ nav a:focus::after{
   transform: scale(1.1);
   cursor: pointer;
 }
+
+
+/* user account page */
+#account-user {
+  font-style: italic;
+}
+
+#account-component {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(to bottom right, #DAAD86, white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#account-component button {
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  width: 130px;
+  background-color: white;
+}
+
 
 
 /* User Trips List */

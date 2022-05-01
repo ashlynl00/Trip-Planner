@@ -103,8 +103,9 @@ const UserAccount = () => {
     };
     
     return (
-        <div>
-            <h1>Hello {parsedUser.username}</h1>
+        <div id="account-component">
+            <h1>Your Account</h1>
+            <h1>Hello <span id="account-user">{parsedUser.username}</span></h1>
             { showing ?
                 <form onSubmit={submitEditUsername}>
                     Edit Username: <input type='text' name='username' onChange={handleInputChange} value={editUser.username}></input>
