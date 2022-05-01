@@ -187,7 +187,7 @@ const PeopleComponent = (props) => {
     return (
         <div>
             <h3>People: </h3>
-            <ul>
+            <ul className="people-list">
                 {people.map((user)=>{
                     return(
                         <li>{user}</li>
@@ -199,11 +199,11 @@ const PeopleComponent = (props) => {
                     <h3>Please add the user's username that you would like to add to this trip: </h3>
                     <form onSubmit={handleSubmit}>
                         <input name="username" type="text" onChange={handleInputChange} value={addUsername.username}></input>
-                        <button type="submit">Submit</button>
+                        <button type="submit" className="misc-btn">Submit</button>
                     </form>
                 </>
                 :
-                <button onClick={toggleShowing}>Add Person to this Trip</button>
+                <button onClick={toggleShowing} className="misc-btn">Add Person to this Trip</button>
             }
         </div>
     )

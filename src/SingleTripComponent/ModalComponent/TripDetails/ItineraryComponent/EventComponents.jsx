@@ -104,18 +104,18 @@ const EventComponent = (props) => {
                         Event Name: <input type='text' name='eventName' value={editEvent.eventName} onChange={handleInputChange}></input>
                         Event Time: <input type='time' name='eventTime' value={editEvent.eventTime} onChange={handleInputChange}></input>
                         Event Price: <input type='number' name='eventPrice' value={editEvent.eventPrice} onChange={handleInputChange}></input>
-                        <button type='submit'>Submit</button>
+                        <button type='submit' className="day-btns">Submit</button>
                     </form>
-                    <button onClick={toggleShowing}>Cancel</button>
+                    <button onClick={toggleShowing} className="day-btns">Cancel</button>
                 </>
                 :
-                <button onClick={toggleShowing}>Edit Event</button>
+                <button onClick={toggleShowing} className="day-btns">Edit Event</button>
             }
             <button onClick={()=>{
                 let index = props.index
                 let day =index + 1
                 deleteEvent(props.formattedCurrentDay, props.event._id, props.trip._id, day)
-                }}>Delete Event</button>
+                }} className="day-btns">Delete Event</button>
         </div>
     )
 }

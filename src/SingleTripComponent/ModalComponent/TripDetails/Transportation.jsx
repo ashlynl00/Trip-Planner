@@ -94,7 +94,7 @@ const Transportation = (props) => {
     };
 
     return (
-        <>
+        <div className='transportation-component'>
             <h3>Transportation: </h3>
             { props.trip.mainTransportation == undefined ?
                 showing ?
@@ -163,7 +163,7 @@ const Transportation = (props) => {
                         }
                     </div>
             }
-        </>
+        </div>
     )
 }
 

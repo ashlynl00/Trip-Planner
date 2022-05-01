@@ -150,13 +150,13 @@ const DayComponent = (props) => {
                     {showing ?
                         <>
                             <form onSubmit={submitAddDescription}>
-                                Description: <textarea type='text' name='description' value={addDescription.description} onChange={handleInputChangeDescription}></textarea>
-                                <button type='submit'>Submit</button>
+                                <textarea type='text' name='description' value={addDescription.description} onChange={handleInputChangeDescription}></textarea>
+                                <button type='submit' className="day-btns">Submit</button>
                             </form>
-                            <button onClick={toggleShowing}>Cancel</button>
+                            <button onClick={toggleShowing} className="day-btns">Cancel</button>
                         </>
                         :
-                        <button onClick={toggleShowing}>Add Description</button>
+                        <button onClick={toggleShowing} className="day-btns">Add Description</button>
                     }
                 </>
                 : 
@@ -167,13 +167,13 @@ const DayComponent = (props) => {
                             {showing ?
                                 <>
                                     <form onSubmit={submitAddDescription}>
-                                        Description: <textarea type='text' name='description' value={addDescription.description} onChange={handleInputChangeDescription}></textarea>
-                                        <button type='submit'>Submit</button>
+                                        <textarea type='text' name='description' value={addDescription.description} onChange={handleInputChangeDescription}></textarea>
+                                        <button type='submit' className="day-btns">Submit</button>
                                     </form>
-                                    <button onClick={toggleShowing}>Cancel</button>
+                                    <button onClick={toggleShowing} className="day-btns">Cancel</button>
                                 </>
                                 :
-                                <button onClick={toggleShowing}>Add Description</button>
+                                <button onClick={toggleShowing} className="day-btns">Add Description</button>
                             }
                         </>
                         :
@@ -183,13 +183,13 @@ const DayComponent = (props) => {
                             {showing ?
                                 <>
                                     <form onSubmit={submitAddDescription}>
-                                        Description: <textarea type='text' name='description' value={addDescription.description} onChange={handleInputChangeDescription}></textarea>
-                                        <button type='submit'>Submit</button>
+                                        <textarea type='text' name='description' value={addDescription.description} onChange={handleInputChangeDescription}></textarea>
+                                        <button type='submit' className="day-btns">Submit</button>
                                     </form>
-                                    <button onClick={toggleShowing}>Cancel</button>
+                                    <button onClick={toggleShowing} className="day-btns">Cancel</button>
                                 </>
                                 :
-                                <button onClick={toggleShowing}>Edit Description</button>
+                                <button onClick={toggleShowing} className="day-btns">Edit Description</button>
                             }
                         </>
                     }
@@ -208,10 +208,10 @@ const DayComponent = (props) => {
                                 Event Price: <input type='number' name='eventPrice' value={addEvent.eventPrice} onChange={handleInputChangeEvent}></input>
                                 <button type='submit'>Submit</button>
                             </form>
-                            <button onClick={toggleShowingEventForm}>Cancel</button>
+                            <button onClick={toggleShowingEventForm} className="day-btns">Cancel</button>
                         </>
                         :
-                        <button onClick={toggleShowingEventForm}>Add Event</button>
+                        <button onClick={toggleShowingEventForm} className="day-btns">Add Event</button>
                     }
                 </>
             }

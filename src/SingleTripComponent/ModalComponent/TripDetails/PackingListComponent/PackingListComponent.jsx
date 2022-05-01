@@ -85,12 +85,12 @@ const PackingListComponent = (props) => {
                             <form onSubmit={submitListItem}>
                                 Item Name : <input type='text' name='itemName' value={listItem.itemName} onChange={handleInputChange}></input>
                                 Quantity: <input type='number' name='itemQuantity' value={listItem.itemQuantity} onChange={handleInputChange}></input>
-                                <button type="submit">Submit</button>
+                                <button type="submit" className="misc-btn">Submit</button>
                             </form>
-                            <button onClick={toggleShowing}>Cancel</button>
+                            <button onClick={toggleShowing} className="misc-btn">Cancel</button>
                         </>
                         :
-                        <button onClick={toggleShowing}>Add to Packing List</button>
+                        <button onClick={toggleShowing} className="misc-btn">Add to Packing List</button>
                     }
                 </>
                 :
@@ -99,12 +99,12 @@ const PackingListComponent = (props) => {
                         <form onSubmit={submitListItem}>
                             Item Name : <input type='text' name='itemName' value={listItem.itemName} onChange={handleInputChange}></input>
                             Quantity: <input type='number' name='itemQuantity' value={listItem.itemQuantity} onChange={handleInputChange}></input>
-                            <button type="submit">Submit</button>
+                            <button type="submit" className="misc-btn">Submit</button>
                         </form>
-                        <button onClick={toggleShowing}>Cancel</button>
+                        <button onClick={toggleShowing} className="misc-btn">Cancel</button>
                     </>
                     :
-                    <button onClick={toggleShowing}>Add to Packing List</button>
+                    <button onClick={toggleShowing} className="misc-btn">Add to Packing List</button>
                 
             }
         </>

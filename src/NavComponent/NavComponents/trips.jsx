@@ -93,12 +93,11 @@ const Trips = (props) => {
     }, []);
     
     return (
-        <div>
+        <div id="trip-page">
             {parsedCurrentUser !== null ?
                 currentUserTrips.length > 0 ?
-                    <div className="user-trips">
-                        <p>User Trips:</p>
-                        <ul>
+                    <div>
+                        <ul id="user-trips">
                             {currentUserTrips.map((trip)=> {
                                 return (
                                     <li><SingleTripComponent trip={trip} users={props.users} /></li>

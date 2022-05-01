@@ -11,6 +11,10 @@ import PeopleComponent from "./TripDetails/PeopleComponent";
 import Transportation from "./TripDetails/Transportation";
 import { useNavigate } from "react-router-dom";
 
+// import images
+import editIcon from '../edit-icon.png';
+import backArrow from './back-arrow.png';
+
 
 
 const ModalComponent = (props) => {
@@ -83,54 +87,59 @@ const ModalComponent = (props) => {
 
     return (
         <div className="trip-modal">
-            <h2>{props.trip.tripName} to {props.trip.destinations}</h2>
-            <h3>Dates: {props.tripStartFormatted} - {props.tripEndFormatted}</h3>
-            { props.trip.img == null ?
-                    <>
-                        {showing ?
-                            <>
-                                <form onSubmit={handleImgSubmit}>
-                                    <input onChange ={ (e)=>setImage(e.target.files[0])} type="file" name="img" accept="image/png, image/jpeg" placeholder='upload image'></input>
-                                    <button type="submit">Submit</button>
-                                </form>
-                                <button onClick={toggleShowing}>Cancel</button>
-                            </>
-                            :
-                            <button onClick={toggleShowing}>Upload Image</button>
-                        }
-                    </>
-                :
-                    <>
-                        <img src={props.trip.img}></img>
-                        {showing ?
-                            <>
-                                <form onSubmit={handleImgSubmit}>
-                                    <input onChange ={ (e)=>setImage(e.target.files[0])} type="file" name="img" accept="image/png, image/jpeg" placeholder='upload image'></input>
-                                    <button type="submit">Submit</button>
-                                </form>
-                                <button onClick={toggleShowing}>Cancel</button>
-                            </>
-                            :
-                            <button onClick={toggleShowing}>Edit Image</button>
-                        }
-                    </>
-                }
-            <h4>Itinerary: </h4>
-            <div className="day-container">
-                {[...Array(totalDays)].map((elementInArray, index)=>{
-                    return (
-                        <div className="day-component">
-                            <p className="day-component">Day {index+1}: </p>
-                            <DayComponent index={index} trip={props.trip} tripStart={props.tripStart} toggleShowing={props.toggleShowing}></DayComponent>
+            <div className="single-trip-container">
+                <h2>{props.trip.tripName} to {props.trip.destinations}</h2>
+                <h3>Dates: {props.tripStartFormatted} - {props.tripEndFormatted}</h3>
+                { props.trip.img == null ?
+                        <>
+                            {showing ?
+                                <>
+                                    <form onSubmit={handleImgSubmit}>
+                                        <input onChange ={ (e)=>setImage(e.target.files[0])} type="file" name="img" accept="image/png, image/jpeg" placeholder='upload image'></input>
+                                        <button type="submit">Submit</button>
+                                    </form>
+                                    <button onClick={toggleShowing}>Cancel</button>
+                                </>
+                                :
+                                <button onClick={toggleShowing}>Upload Image</button>
+                            }
+                        </>
+                    :
+                        <div className="img-transportation">
+                            <div className="img-modal">
+                            <img src={props.trip.img} className='trip-img'></img>
+                            <br></br>
+                                {showing ?
+                                    <>
+                                        <form onSubmit={handleImgSubmit}>
+                                            <input onChange ={ (e)=>setImage(e.target.files[0])} type="file" name="img" accept="image/png, image/jpeg" placeholder='upload image'></input>
+                                            <button type="submit">Submit</button>
+                                        </form>
+                                        <button onClick={toggleShowing}>Cancel</button>
+                                    </>
+                                    :
+                                    <img src={editIcon} onClick={toggleShowing} id="edit-icon"></img>
+                                }
+                            </div>
+                            <Transportation trip={props.trip} toggleShowing={props.toggleShowing}></Transportation>
                         </div>
-                    )   
-                })}
+                }
+                <h4>Itinerary: </h4>
+                <div className="day-container">
+                    {[...Array(totalDays)].map((elementInArray, index)=>{
+                        return (
+                            <div className="day-component">
+                                <p>Day {index+1}: </p>
+                                <DayComponent index={index} trip={props.trip} tripStart={props.tripStart} toggleShowing={props.toggleShowing}></DayComponent>
+                            </div>
+                        )   
+                    })}
+                </div>
+                <PackingListComponent trip={props.trip} toggleShowing={props.toggleShowing}></PackingListComponent>
+                <PeopleComponent trip={props.trip} users={props.users} toggleShowing={props.toggleShowing}></PeopleComponent>
+                <br></br><br></br>
+                <img src={backArrow} className="back-arrow" onClick={props.toggleShowing}></img>
             </div>
-            <Transportation trip={props.trip} toggleShowing={props.toggleShowing}></Transportation>
-            <PackingListComponent trip={props.trip} toggleShowing={props.toggleShowing}></PackingListComponent>
-            <PeopleComponent trip={props.trip} users={props.users} toggleShowing={props.toggleShowing}></PeopleComponent>
-            <br></br><br></br>
-            <button onClick={props.toggleShowing}>Back</button>
         </div>
     )
 }

@@ -28,7 +28,8 @@ const SingleTripComponent = (props) => {
                 :
                 <div className="trip-preview" onClick={toggleShowing}>
                     <h3>{props.trip.tripName}</h3>
-                    <h4>Destinations: {props.trip.destinations} From {tripStart} to {tripEnd} </h4>
+                    <h4>Destinations: {props.trip.destinations}</h4> 
+                    <p>From {tripStart} to {tripEnd}</p>
                 </div>
             }
         </div>
