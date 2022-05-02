@@ -315,7 +315,7 @@ nav a:focus::after{
   position: absolute;
   height: 100%;
   width: 100%;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   display: flex;
